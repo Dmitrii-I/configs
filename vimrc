@@ -56,4 +56,6 @@ set ruler
 " Height of the command bar
 set cmdheight=2
 
+" Pressing =j in normal mode reformats the JSON file
+nmap =j :%!python3 -m json.tool<CR>
 
