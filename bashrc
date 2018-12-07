@@ -30,7 +30,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias gs='git status'
-alias gg='git pull origin && git push origin'
+alias gg='echo -------------git pull origin; git pull origin; echo -----------git push origin; git push origin'
 
 
 PATH=$PATH:/usr/sbin:$HOME/.local/bin:$HOME/bin
