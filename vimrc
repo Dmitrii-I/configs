@@ -61,3 +61,6 @@ nmap =j :%!python3 -m json.tool<CR>
 
 " avoid messed up indentation when pasting
 set paste
+
+" tabs are 2 spaces for yaml files:
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
