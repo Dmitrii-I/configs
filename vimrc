@@ -28,11 +28,6 @@ colorscheme solarized
 " enable vim-airline status line pluging
 set laststatus=2
 
-
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
 " Transparrent background
 hi Normal          ctermfg=252 ctermbg=none
 
@@ -64,3 +59,7 @@ set paste
 
 " tabs are 2 spaces for yaml files:
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
