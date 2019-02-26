@@ -1,0 +1,6 @@
+.headers on
+.mode column
+.nullvalue ¤
+.prompt "> "
+.timer on
+PRAGMA foreign_keys = true;

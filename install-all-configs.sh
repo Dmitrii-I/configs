@@ -5,6 +5,7 @@ ln -sf ~/configs/bashrc ~/.bashrc
 ln -sf ~/configs/bashrc ~/.bash_profile
 ln -sf ~/configs/vimrc ~/.vimrc
 ln -sf ~/configs/ansible.cfg ~/.ansible.cfg
+ln -sf ~/configs/sqliterc ~/.sqliterc
 
 
 
