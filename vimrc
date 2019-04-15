@@ -63,3 +63,8 @@ autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
 set tabstop=4
 set shiftwidth=4
 set expandtab
+
+set undofile                    " Save undos after file closes
+set undodir=$HOME/.vim/undo     " Where to save undo histories
+set undolevels=10000            " How many undos
+set undoreload=1000000          " Number of lines to save for undo

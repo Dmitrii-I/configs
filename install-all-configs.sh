@@ -13,6 +13,7 @@ ln -sf ~/configs/sqliterc ~/.sqliterc
 mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim/autoload
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+mkdir -p ~/.vim/undo
 
 cd ~/.vim/bundle
 git clone git://github.com/altercation/vim-colors-solarized.git
