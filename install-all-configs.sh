@@ -19,4 +19,5 @@ cd ~/.vim/bundle
 git clone git://github.com/altercation/vim-colors-solarized.git
 git clone git://github.com/vim-airline/vim-airline
 
+sudo apt-get install pspg -y && ln -sf ~/configs/psqlrc ~/.psqlrc
 
