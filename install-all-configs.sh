@@ -4,9 +4,6 @@ set -o nounset      # exit with non-zero status if expansion is attempted on an 
 set -o errexit      # exit immediatelly if a pipeline, a list, or a compound command fails
 set -o pipefail     # failures in pipe in the commands before last one, also count as failures
 
-# Convenience functions from: https://github.com/Dmitrii-I/bash-scripts/blob/master/lib-bash-generic.sh
-source /opt/tutti-dw/symlinks/tutti-env-vars.sh
-
 # Trapping non-zero exit codes:
 on_error() {
     line_num="$1"
