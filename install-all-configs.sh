@@ -31,7 +31,7 @@ ln -sf ~/configs/sqliterc ~/.sqliterc
 [ -d ~/.vim/bundle/vim-colors-solarized ] && rm -rf ~/.vim/bundle
 mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim/autoload
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+wget --quiet --output-document ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 mkdir -p ~/.vim/undo
 
 cd ~/.vim/bundle
