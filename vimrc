@@ -65,3 +65,9 @@ set undofile                    " Save undos after file closes
 set undodir=$HOME/.vim/undo     " Where to save undo histories
 set undolevels=10000            " How many undos
 set undoreload=1000000          " Number of lines to save for undo
+
+" Wrap git commit message after 72 characters.
+autocmd FileType gitcommit setlocal textwidth=72
+
+" Do autowrap git commit messages when in insert mode
+autocmd FileType gitcommit setlocal formatoptions-=l
