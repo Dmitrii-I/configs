@@ -48,6 +48,8 @@ function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
 export HISTSIZE=999999  # number of lines to save for a session
 export HISTFILESIZE=9999999  # number of most recent lines to keep in history file (default: .bash_hsitory)
 export HISTCONTROL=ignoredups:ignorespace:erasedups
+# ignore certain commands
+export HISTIGNORE='gs:ll:fg:gg:rs:cd:jcc'
 
 # keep history in sync accross all sessions:
 export PROMPT_COMMAND="history -a; history -c; history -r; ${PROMPT_COMMAND}"
