@@ -71,3 +71,6 @@ autocmd FileType gitcommit setlocal textwidth=72
 
 " Do autowrap git commit messages when in insert mode
 autocmd FileType gitcommit setlocal formatoptions-=l
+
+" Remove trailing spaces upon saving
+autocmd BufWritePre * %s/\s\+$//e
