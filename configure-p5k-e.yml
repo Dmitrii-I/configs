@@ -1,0 +1,231 @@
+# To run:
+#
+# ansible-playbook configure-p5k-e.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com
+#
+# This ansible playbook assumes `seagull32gb` is mounted under /media/$USER/seagull32gb
+
+---
+- hosts: all
+
+  tasks:
+
+  - name: Add repo with nvidia drivers
+    apt_repository:
+      repo: ppa:graphics-drivers
+      state: present
+
+  - name: Update APT packages info
+    apt:
+      update_cache: yes
+
+  - name: Install a list of packages
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - git
+      - python3-pip
+      - python3-venv
+      - keepassx
+      - vim
+      - gnome-terminal
+      - dconf-cli  # to be able to configure solarized dark colors on gnome-terminal
+      - snapd
+
+  - name: Make gnome-terminal the default terminal
+    alternatives:
+      name: x-terminal-emulator
+      path: /usr/bin/gnome-terminal.wrapper
+
+  - name: Create ~/.ssh directory
+    tags:
+      - ssh
+    become: no
+    file:
+      path: ~/.ssh
+      state: directory
+      mode: 0700
+
+  - name: Copy private SSH key
+    become: no
+    tags:
+      - ssh
+    copy:
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/id_rsa
+        dest: ~/.ssh/id_rsa
+        mode: '0600'
+
+  - name: Copy public SSH key
+    become: no
+    tags:
+      - ssh
+    copy:
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/id_rsa.pub
+        dest: ~/.ssh/id_rsa.pub
+        mode: '0600'
+
+  - name: Make vim the default editor
+    become: no
+    lineinfile:
+      create: yes
+      path: ~/.selected_editor
+      regexp: 'SELECTED'
+      line: SELECTED_EDITOR="/usr/bin/vim.basic"
+
+  - name: Remove useless packages from the cache
+    apt:
+      autoclean: yes
+
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
+
+  - name: Set global git username
+    become: no
+    git_config:
+      name: user.name
+      scope: global
+      value: "{{ git_user_name }}"
+
+  - name: Set global git email
+    become: no
+    git_config:
+      name: user.email
+      scope: global
+      value: "{{ git_user_email }}"
+
+  - name: Set git editor
+    become: no
+    git_config:
+      name: core.editor
+      scope: global
+      value: vim
+
+  - name: Download bashrc
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
+      dest: ~/.bashrc
+      mode: 0600
+      force: yes
+
+  - name: Download bash_profile
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
+      dest: ~/.bash_profile
+      mode: 0600
+      force: yes
+
+  - name: Download psqlrc
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/psqlrc
+      dest: ~/.psqlrc
+      mode: 0600
+      force: yes
+
+  - name: Download sqliterc
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/sqliterc
+      dest: ~/.sqliterc
+      mode: 0600
+      force: yes
+
+  - name: Create ~/.vim/autoload directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/autoload
+      state: directory
+      mode: 0755
+
+  - name: Create ~/.vim/bundle directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle
+      state: directory
+      mode: 0755
+
+  - name: Create ~/.vim/undo directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/undo
+      state: directory
+      mode: 0755
+
+  - name: Download pathogen.vim
+    tags:
+      - vim
+    become: no
+    get_url:
+      url: https://tpo.pe/pathogen.vim
+      dest: ~/.vim/autoload/pathogen.vim
+      mode: 0644
+      force: yes
+
+  - name: Install vim-colors-solarized (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/altercation/vim-colors-solarized.git'
+      dest: ~/.vim/bundle/vim-colors-solarized
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Install vim-airline (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/vim-airline/vim-airline.git'
+      dest: ~/.vim/bundle/vim-airline
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Create a directory for Gnome shells
+    become: no
+    file:
+      path: ~/.local/share/gnome-shell/extensions
+      state: directory
+      mode: 0755
+
+  - name: Install `Put Window` GNOME shell extension
+    become: no
+    git:
+      repo: 'https://github.com/negesti/gnome-shell-extensions-negesti.git'
+      dest: ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org
+      clone: yes
+      force: yes
+      update: no
+      version: v26
+
+  - name : Download and unarchive Terraform 0.12.4
+    become: no
+    tags:
+      - terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/0.12.4/terraform_0.12.4_linux_amd64.zip
+      dest: ~/.local/bin/
+      remote_src: yes
+
+  - name: Install RStudio
+    apt:
+      deb: http://download1.rstudio.org/rstudio-1.1.463-i386.deb
+
+  - name: Install fzf binary
+    become: yes
+    unarchive:
+      src: https://github.com/junegunn/fzf-bin/releases/download/0.18.0/fzf-0.18.0-linux_amd64.tgz
+      dest: /usr/local/bin
+      remote_src: yes
+
