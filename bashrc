@@ -75,3 +75,5 @@ export LS_COLORS
 # Load .bashrc_local file at last, if it exists. This file contains machine specific config.
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local
 
+# Disable Gnome terminal bell sound
+bind 'set bell-style none'
