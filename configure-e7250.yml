@@ -127,6 +127,16 @@
       mode: 0600
       force: yes
 
+  - name: Download vimrc
+    become: no
+    tags:
+      - vim
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/vimrc
+      dest: ~/.vimrc
+      mode: 0600
+      force: yes
+
   - name: Create ~/.vim/autoload directory
     tags:
       - vim
@@ -222,5 +232,4 @@
       src: https://github.com/junegunn/fzf-bin/releases/download/0.18.0/fzf-0.18.0-linux_amd64.tgz
       dest: /usr/local/bin
       remote_src: yes
-
 
