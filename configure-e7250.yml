@@ -23,6 +23,7 @@
       - python3-venv
       - keepassx
       - vim
+      - ubuntu-restricted-extras
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
