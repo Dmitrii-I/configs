@@ -234,3 +234,9 @@
       dest: /usr/local/bin
       remote_src: yes
 
+  - name: Install PyCharm from snap
+    become: yes
+    tags:
+      - pycharm
+    shell: sudo snap install pycharm-community --classic
+
