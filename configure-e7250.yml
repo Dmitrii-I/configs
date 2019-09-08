@@ -25,6 +25,8 @@
       - vim
       - ubuntu-restricted-extras
       - whois
+      - httpie
+      - curl
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
