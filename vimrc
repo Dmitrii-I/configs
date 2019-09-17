@@ -7,10 +7,10 @@
 " curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 execute pathogen#infect()
 " Now any plugins you wish to install can be extracted to a subdirectory under ~/.vim/bundle, and they will be added to the 'runtimepath'
-	
 
 
-set backspace=2 " make backspace work 
+
+set backspace=2 " make backspace work
 
 " different indentation per file type
 filetype plugin on
@@ -34,7 +34,7 @@ hi Normal          ctermfg=252 ctermbg=none
 " Highlight search results
 set hlsearch
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " By pressing F6, execute current line in terminal/bash
 nmap <F6> :.w !bash
@@ -56,6 +56,9 @@ nmap =j :%!python3 -m json.tool<CR>
 
 " tabs are 2 spaces for yaml files:
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
+
+" tabs are 2 spaces for yaml files:
+autocmd FileType toml setlocal tabstop=2 shiftwidth=2 expandtab
 
 set tabstop=4
 set shiftwidth=4
