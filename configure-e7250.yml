@@ -178,6 +178,14 @@
       mode: 0644
       force: yes
 
+  - name: Delete dir ~/.vim/bundle/vim-colors-solarized before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-colors-solarized
+      state: absent
+
   - name: Install vim-colors-solarized (if fails, delete its dir)
     tags:
       - vim
@@ -188,6 +196,14 @@
       clone: yes
       force: yes
       update: no
+
+  - name: Delete dir ~/.vim/bundle/vim-airline before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-airline
+      state: absent
 
   - name: Install vim-airline (if fails, delete its dir)
     tags:
