@@ -216,6 +216,25 @@
       force: yes
       update: no
 
+  - name: Delete dir ~/.vim/bundle/vim-toml before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-toml
+      state: absent
+
+  - name: Install vim-toml
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/cespare/vim-toml.git'
+      dest: ~/.vim/bundle/toml
+      clone: yes
+      force: yes
+      update: no
+
   - name: Create a directory for Gnome shells
     become: no
     file:
