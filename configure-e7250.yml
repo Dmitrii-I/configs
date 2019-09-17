@@ -14,6 +14,8 @@
       update_cache: yes
 
   - name: Install a list of packages
+    tags:
+      - apt
     apt:
       name: "{{ packages }}"
     vars:
