@@ -199,6 +199,25 @@
       force: yes
       update: no
 
+  - name: Delete dir ~/.vim/bundle/vim-terraform before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-terraform
+      state: absent
+
+  - name: Install vim-terraform (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/hashivim/vim-terraform.git'
+      dest: ~/.vim/bundle/vim-terraform
+      clone: yes
+      force: yes
+      update: no
+
   - name: Delete dir ~/.vim/bundle/vim-airline before installing
     tags:
       - vim
