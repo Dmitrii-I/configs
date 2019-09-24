@@ -280,3 +280,11 @@
       - pycharm
     shell: sudo snap install pycharm-community --classic
 
+  - name: Install `awscli`
+    tags:
+      - python
+    become: no
+    pip:
+      name: awscli
+      executable: pip3
+
