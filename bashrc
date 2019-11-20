@@ -22,7 +22,7 @@ export PS1="\[\e[0m\]\[\e[00;35m\]\H\[\e[0m\]\[\e[00;37m\]:\[\e[0m\]\[\e[00;36m\
 
 
 # some more ls aliases
-alias ll='ls -lF'
+alias ll='ls -lFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias ls='ls --color=auto'
