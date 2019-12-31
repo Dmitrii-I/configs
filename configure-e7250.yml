@@ -30,6 +30,7 @@
       - whois
       - httpie
       - curl
+      - gnuplot
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
