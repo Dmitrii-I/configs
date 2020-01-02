@@ -288,7 +288,7 @@
 
   - name: Install RStudio
     apt:
-      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.1335-amd64.deb
+      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5033-amd64.deb
 
   - name: Install fzf binary
     become: yes
