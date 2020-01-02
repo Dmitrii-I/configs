@@ -50,21 +50,21 @@
       state: directory
       mode: 0700
 
-  - name: Copy private SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/id_rsa
+  - name: Copy private SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa
     become: no
     tags:
       - ssh
     copy:
-        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/id_rsa
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa
         dest: ~/.ssh/id_rsa
         mode: '0600'
 
-  - name: Copy public SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/id_rsa.pub
+  - name: Copy public SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa.pub
     become: no
     tags:
       - ssh
     copy:
-        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/id_rsa.pub
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa.pub
         dest: ~/.ssh/id_rsa.pub
         mode: '0600'
 
