@@ -301,7 +301,7 @@
     become: yes
     tags:
       - pycharm
-    shell: sudo snap install pycharm-community --classic
+    shell: snap install pycharm-community --classic
 
   - name: Install `awscli`
     tags:
