@@ -293,6 +293,13 @@
     apt:
       deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5033-amd64.deb
 
+  - name: Install R package `renv`
+    become: yes
+    tags:
+      - R_packages
+      - renv
+    shell: Rscript --vanilla -e 'install.packages("renv", repos=c("https://cloud.r-project.org"))'
+
   - name: Install fzf binary
     become: yes
     unarchive:
