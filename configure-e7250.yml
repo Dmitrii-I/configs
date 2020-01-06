@@ -27,8 +27,18 @@
       state: present
 
   - name: Update APT packages info
+    become: yes
+    tags:
+      - apt
     apt:
       update_cache: yes
+
+  - name: Upgrade APT packages
+    become: yes
+    tags:
+      - apt
+    apt:
+      upgrade: yes
 
   - name: Install a list of packages
     tags:
