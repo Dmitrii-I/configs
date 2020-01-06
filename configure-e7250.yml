@@ -53,6 +53,7 @@
       - libcurl4-openssl-dev
       - libssl-dev
       - libxml2-dev
+      - traceroute
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
