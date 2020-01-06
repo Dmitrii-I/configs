@@ -9,6 +9,23 @@
 
   tasks:
 
+  - name: Add key with which Ubuntu archives on CRAN are signed
+    become: yes
+    tags:
+      - apt
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+      state: present
+
+  - name: Add APT repo for R
+    become: yes
+    tags:
+      - apt
+    apt_repository:
+      repo: deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
+      state: present
+
   - name: Update APT packages info
     apt:
       update_cache: yes
