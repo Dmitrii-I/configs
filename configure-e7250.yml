@@ -64,6 +64,7 @@
       - libssl-dev
       - libxml2-dev
       - traceroute
+      - tree
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
