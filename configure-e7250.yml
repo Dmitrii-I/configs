@@ -345,6 +345,12 @@
       - pycharm
     shell: snap install pycharm-community --classic
 
+  - name: Install Julia from snap
+    become: yes
+    tags:
+      - julia
+    shell: snap install julia --classic
+
   - name: Install `awscli`
     tags:
       - python
