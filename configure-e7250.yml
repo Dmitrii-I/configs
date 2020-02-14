@@ -65,6 +65,7 @@
       - libxml2-dev
       - traceroute
       - tree
+      - libqtgui4
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
