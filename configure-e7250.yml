@@ -345,6 +345,12 @@
       - pycharm
     shell: snap install pycharm-community --classic
 
+  - name: Install bitwarden from snap
+    become: yes
+    tags:
+      - bitwarden
+    shell: snap install bitwarden --classic
+
   - name: Install Julia from snap
     become: yes
     tags:
