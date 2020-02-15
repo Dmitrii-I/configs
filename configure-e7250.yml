@@ -65,6 +65,7 @@
       - libxml2-dev
       - traceroute
       - tree
+      - python3-gpg
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
@@ -324,6 +325,13 @@
       - R
     apt:
       deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5033-amd64.deb
+
+  - name: Install Dropbox
+    become: yes
+    tags:
+      - dropbox
+    apt:
+      deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2019.02.14_amd64.deb
 
   - name: Install R package `renv`
     become: yes
