@@ -351,6 +351,12 @@
       - bitwarden
     shell: snap install bitwarden --classic
 
+  - name: Disable natural scrolling. Does not feel natural to me. Don't force Apple-isms on me Ubuntu.
+    become: no
+    tags:
+      - gsettings
+    shell: gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+
   - name: Install Julia from snap
     become: yes
     tags:
