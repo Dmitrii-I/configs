@@ -368,12 +368,6 @@
       - gsettings
     shell: gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 
-  - name: Install Julia from snap
-    become: yes
-    tags:
-      - julia
-    shell: snap install julia --classic
-
   - name: Install `awscli`
     tags:
       - python
