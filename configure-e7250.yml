@@ -354,7 +354,7 @@
     become: yes
     tags:
       - pycharm
-    shell: snap install pycharm-community --classic
+    shell: snap install pycharm-professional --classic
 
   - name: Install bitwarden from snap
     become: yes
