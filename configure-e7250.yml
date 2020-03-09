@@ -310,12 +310,12 @@
       update: no
       version: v26
 
-  - name : Download and unarchive Terraform 0.12.4
+  - name : Download and unarchive Terraform 0.12.23
     become: no
     tags:
       - terraform
     unarchive:
-      src: https://releases.hashicorp.com/terraform/0.12.4/terraform_0.12.4_linux_amd64.zip
+      src: https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip
       dest: ~/.local/bin/
       remote_src: yes
 
