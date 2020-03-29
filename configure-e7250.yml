@@ -376,3 +376,15 @@
       name: awscli
       executable: pip3
 
+  - name: Configure credentials for an AWS profile
+    tags:
+      - aws
+    become: no
+    shell: |
+      aws_access_key_id=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_access_key_id")) | .value' | sed --regexp-extended 's/^"|"$//g')
+      aws_secret_access_key=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_secret_access_key")) | .value' | sed --regexp-extended 's/^"|"$//g')
+      aws_default_region=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_default_region")) | .value' | sed --regexp-extended 's/^"|"$//g')
+      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set aws_access_key_id $aws_access_key_id
+      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set aws_secret_access_key $aws_secret_access_key
+      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set region $aws_default_region
+
