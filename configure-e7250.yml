@@ -143,6 +143,8 @@
       value: vim
 
   - name: Download bashrc
+    tags:
+      - bash
     become: no
     get_url:
       url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
@@ -152,6 +154,8 @@
 
   - name: Download bash_profile
     become: no
+    tags:
+      - bash
     get_url:
       url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
       dest: ~/.bash_profile
