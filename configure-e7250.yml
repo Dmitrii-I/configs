@@ -70,6 +70,7 @@
       - python3.7-dev
       - python3.7-venv
       - minidlna
+      - net-tools
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
