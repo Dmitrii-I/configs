@@ -77,3 +77,6 @@ autocmd FileType gitcommit setlocal formatoptions-=l
 
 " Remove trailing spaces upon saving
 autocmd BufWritePre * %s/\s\+$//e
+
+" Make the dash part of the word rather than it being a word delimiter
+set iskeyword+=-
