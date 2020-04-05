@@ -408,3 +408,10 @@
       token=$(bw get item b68c5822-1919-4bc9-93fd-aad20153d734 | jq '.fields[] | select(.name | contains("api_token_token1")) | .value' | sed --regexp-extended 's/^"|"$//g')
       echo -e "credentials \"app.terraform.io\" {\n  token = \"${token}\"\n}" > ~/.terraformrc
 
+  - name: Configure SportMonks API key
+    tags:
+      - sportmonks
+      - bw
+      - secrets
+    become: no
+    shell: bw get item 3ae401ca-a415-4c16-8956-aab3013b0ded | jq .notes |  sed --regexp-extended 's/^"|"$//g' > ~/.sportmonks_api_key
