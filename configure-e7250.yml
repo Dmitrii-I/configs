@@ -71,6 +71,7 @@
       - python3.7-venv
       - minidlna
       - net-tools
+      - shellcheck
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
