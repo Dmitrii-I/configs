@@ -391,9 +391,10 @@
       aws_access_key_id=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_access_key_id")) | .value' | sed --regexp-extended 's/^"|"$//g')
       aws_secret_access_key=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_secret_access_key")) | .value' | sed --regexp-extended 's/^"|"$//g')
       aws_default_region=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_default_region")) | .value' | sed --regexp-extended 's/^"|"$//g')
-      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set aws_access_key_id $aws_access_key_id
-      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set aws_secret_access_key $aws_secret_access_key
-      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set region $aws_default_region
+      aws_profile=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_profile")) | .value' | sed --regexp-extended 's/^"|"$//g')
+      aws configure --profile "$aws_profile" set aws_access_key_id "$aws_access_key_id"
+      aws configure --profile "$aws_profile" set aws_secret_access_key "$aws_secret_access_key"
+      aws configure --profile "$aws_profile" set region "$aws_default_region"
 
   - name: Setup a terraform config file d4fdd84d-2be2-4ec1-835f-ab8d01190e3a
     tags:
