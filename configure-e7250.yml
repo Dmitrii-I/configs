@@ -416,3 +416,15 @@
       - secrets
     become: no
     shell: bw get item 3ae401ca-a415-4c16-8956-aab3013b0ded | jq .notes |  sed --regexp-extended 's/^"|"$//g' > ~/.sportmonks_api_key
+
+  - name: Configure credentials for an AWS profile 0b71852b-762b-4c2a-a736-ab99010801a0
+    tags:
+      - aws
+    become: no
+    shell: |
+      aws_access_key_id=$(bw get item 0b71852b-762b-4c2a-a736-ab99010801a0 | jq '.fields[] | select(.name | contains("aws_access_key_id")) | .value' | sed --regexp-extended 's/^"|"$//g')
+      aws_secret_access_key=$(bw get item 0b71852b-762b-4c2a-a736-ab99010801a0 | jq '.fields[] | select(.name | contains("aws_secret_access_key")) | .value' | sed --regexp-extended 's/^"|"$//g')
+      aws_default_region=$(bw get item 0b71852b-762b-4c2a-a736-ab99010801a0 | jq '.fields[] | select(.name | contains("aws_default_region")) | .value' | sed --regexp-extended 's/^"|"$//g')
+      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set aws_access_key_id $aws_access_key_id
+      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set aws_secret_access_key $aws_secret_access_key
+      aws configure --profile $(echo $aws_access_key_id | md5sum | cut -c1-32) set region $aws_default_region
