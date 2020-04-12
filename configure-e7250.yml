@@ -72,6 +72,7 @@
       - minidlna
       - net-tools
       - shellcheck
+      - pwgen
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
