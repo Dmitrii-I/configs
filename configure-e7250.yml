@@ -408,8 +408,8 @@
       set -o errexit      # exit immediatelly if a pipeline, a list, or a compound command fails
       set -o pipefail     # failures in pipe in the commands before last one, also count as failures
 
-      token="$(bw get item d4fdd84d-2be2-4ec1-835f-ab8d01190e3a | jq '.fields[] | select(.name | contains("api_token_token1")) | .value' --raw-output)
-      file="$(bw get item d4fdd84d-2be2-4ec1-835f-ab8d01190e3a | jq '.fields[] | select(.name | contains("terraform_config_file")) | .value' --raw-output)
+      token="$(bw get item d4fdd84d-2be2-4ec1-835f-ab8d01190e3a | jq '.fields[] | select(.name | contains("api_token_token1")) | .value' --raw-output)"
+      file="$(bw get item d4fdd84d-2be2-4ec1-835f-ab8d01190e3a | jq '.fields[] | select(.name | contains("terraform_config_file")) | .value' --raw-output)"
       echo -e "credentials \"app.terraform.io\" {\n  token = \"${token}\"\n}" > ~/$file
 
   - name: Configure SportMonks API key
@@ -445,3 +445,18 @@
       aws configure --profile "$aws_profile" set aws_access_key_id "$aws_access_key_id"
       aws configure --profile "$aws_profile" set aws_secret_access_key "$aws_secret_access_key"
       aws configure --profile "$aws_profile" set region "$aws_default_region"
+
+  - name: Setup a terraform config file 05225050-9e45-4cd7-a635-ab9e014c73f7
+    tags:
+      - terraform
+    become: no
+    args:
+      executable: /bin/bash
+    shell: |
+      set -o nounset      # exit with non-zero status if expansion is attempted on an unset variable
+      set -o errexit      # exit immediatelly if a pipeline, a list, or a compound command fails
+      set -o pipefail     # failures in pipe in the commands before last one, also count as failures
+
+      token="$(bw get item 05225050-9e45-4cd7-a635-ab9e014c73f7 | jq '.fields[] | select(.name | contains("api_token_token1")) | .value' --raw-output)"
+      file="$(bw get item 05225050-9e45-4cd7-a635-ab9e014c73f7 | jq '.fields[] | select(.name | contains("config_file")) | .value' --raw-output)"
+      echo -e "credentials \"app.terraform.io\" {\n  token = \"${token}\"\n}" > ~/$file
