@@ -432,3 +432,16 @@
       aws configure --profile "$aws_profile" set aws_access_key_id "$aws_access_key_id"
       aws configure --profile "$aws_profile" set aws_secret_access_key "$aws_secret_access_key"
       aws configure --profile "$aws_profile" set region "$aws_default_region"
+
+  - name: Configure credentials for an AWS profile a9a6a641-6e45-493b-aa67-ab9b01054167
+    tags:
+      - aws
+    become: no
+    shell: |
+      aws_access_key_id=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_access_key_id")) | .value' --raw-output)
+      aws_secret_access_key=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_secret_access_key")) | .value' --raw-output)
+      aws_default_region=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_default_region")) | .value' --raw-output)
+      aws_profile=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_profile")) | .value' --raw-output)
+      aws configure --profile "$aws_profile" set aws_access_key_id "$aws_access_key_id"
+      aws configure --profile "$aws_profile" set aws_secret_access_key "$aws_secret_access_key"
+      aws configure --profile "$aws_profile" set region "$aws_default_region"
