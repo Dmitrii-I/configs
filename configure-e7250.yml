@@ -384,7 +384,7 @@
       name: awscli
       executable: pip3
 
-  - name: Configure credentials for an AWS profile
+  - name: Configure credentials for AWS profile 8448bac1-e7cc-43d6-8759-aad2013af98b
     tags:
       - aws
     become: no
