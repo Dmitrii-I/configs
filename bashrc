@@ -78,3 +78,5 @@ export LS_COLORS
 # Make certain characters part of word, allowing for easier selection in Gnome terminal by double-clicking.
 # This will allow to select a URL by double-clicking, since forward-slash and colon will be part of word.
 dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/word-char-exceptions '@ms "-#%&+,./:=?@_~"'
+
+command -v direnv > /dev/null 2>&1 && eval "$(direnv hook bash)"
