@@ -26,6 +26,24 @@
       repo: deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
       state: present
 
+  - name: Add PostgreSQL APT key
+    become: yes
+    tags:
+      - postgresql
+      - apt
+    apt_key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      state: present
+
+  - name: Add PostgreSQL APT repo
+    become: yes
+    tags:
+      - postgresql
+      - apt
+    apt_repository:
+      repo: deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
+      state: present
+
   - name: Update APT packages info
     become: yes
     tags:
@@ -74,7 +92,7 @@
       - shellcheck
       - pwgen
       - direnv
-      - postgresql-client-common
+      - postgresql-client-12
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
