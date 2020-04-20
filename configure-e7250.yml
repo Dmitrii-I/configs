@@ -385,6 +385,15 @@
       name: awscli
       executable: pip3
 
+  - name: Install `glosm`
+    tags:
+      - python
+      - glosm
+    become: yes
+    pip:
+      name: glosm==0.6.2
+      executable: pip3
+
   - name: Configure credentials for AWS profile 8448bac1-e7cc-43d6-8759-aad2013af98b
     tags:
       - aws
