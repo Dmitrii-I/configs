@@ -402,7 +402,7 @@
       - numpy
     become: no
     pip:
-      name: notebook
+      name: numpy
       executable: pip3
 
   - name: Install Jupyter notebook
