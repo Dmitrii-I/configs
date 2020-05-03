@@ -396,6 +396,15 @@
       - gsettings
     shell: gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 
+  - name: Install Jupyter notebook
+    tags:
+      - python
+      - jupyter
+    become: no
+    pip:
+      name: notebook
+      executable: pip3
+
   - name: Install `awscli`
     tags:
       - python
