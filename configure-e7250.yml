@@ -93,6 +93,9 @@
       - pwgen
       - direnv
       - postgresql-client-12
+      - python3.8
+      - python3.8-venv
+      - binfmt-support
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
