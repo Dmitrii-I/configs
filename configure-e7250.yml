@@ -98,6 +98,7 @@
       - python3.8-venv
       - binfmt-support
       - python3.8-dev
+      - python-psycopg2
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
