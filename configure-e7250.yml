@@ -93,6 +93,7 @@
       - pwgen
       - direnv
       - postgresql-client-12
+      - postgresql-12
       - python3.8
       - python3.8-venv
       - binfmt-support
