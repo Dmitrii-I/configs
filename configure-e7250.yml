@@ -522,3 +522,11 @@
       token="$(bw get item 05225050-9e45-4cd7-a635-ab9e014c73f7 | jq '.fields[] | select(.name | contains("api_token_token1")) | .value' --raw-output)"
       file="$(bw get item 05225050-9e45-4cd7-a635-ab9e014c73f7 | jq '.fields[] | select(.name | contains("config_file")) | .value' --raw-output)"
       echo -e "credentials \"app.terraform.io\" {\n  token = \"${token}\"\n}" > ~/$file
+
+  - name: Create postgresql superuser $USER
+    become_user: postgres
+    tags:
+      - postgresql
+    postgresql_user:
+      name: "{{ lookup('env','USER') }}"
+      role_attr_flags: SUPERUSER
