@@ -31,6 +31,9 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias gs='git status'
 alias gg='echo -------------git pull origin; git pull origin; echo -----------git push origin; git push origin'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gm='git commit'
 
 
 PATH=$PATH:/usr/sbin:$HOME/.local/bin:$HOME/bin
