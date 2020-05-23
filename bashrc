@@ -34,6 +34,7 @@ alias gg='echo -------------git pull origin; git pull origin; echo -----------gi
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gm='git commit'
+alias ga='git add'
 
 
 PATH=$PATH:/usr/sbin:$HOME/.local/bin:$HOME/bin
