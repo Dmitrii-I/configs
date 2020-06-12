@@ -80,3 +80,5 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " Make the dash part of the word rather than it being a word delimiter
 set iskeyword+=-
+
+let g:airline_section_b = '%{getcwd()}' " in section B of the status line display the CWD
