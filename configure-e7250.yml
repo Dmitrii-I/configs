@@ -560,3 +560,12 @@
       update-locale LC_MEASUREMENT=en_GB.UTF-8
       update-locale LC_IDENTIFICATION=en_GB.UTF-8
       update-locale LC_ALL=en_GB.UTF-8
+
+  - name: Install pgen
+    become: no
+    tags:
+      - pgen
+      - cargo
+      - rust
+      - apt
+    shell: cargo install pgen
