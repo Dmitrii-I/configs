@@ -362,7 +362,7 @@
     tags:
       - R
     apt:
-      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5033-amd64.deb
+      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.3.1056-amd64.deb
 
   - name: Install Dropbox
     become: yes
