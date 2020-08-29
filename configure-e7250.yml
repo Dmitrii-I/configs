@@ -349,8 +349,8 @@
       dest: ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org
       clone: yes
       force: yes
-      update: no
-      version: v26
+      update: yes
+      version: v29
 
   - name : Download and unarchive Terraform 0.12.23
     become: no
