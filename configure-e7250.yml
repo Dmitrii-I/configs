@@ -353,6 +353,18 @@
       update: yes
       version: v29
 
+  - name: Install `ShellTile` GNOME shell extension
+    become: no
+    tags:
+      - gnome
+    git:
+      repo: 'https://github.com/emasab/shelltile.git'
+      dest: ~/.local/share/gnome-shell/extensions/ShellTile@emasab.it
+      clone: yes
+      force: yes
+      update: no
+      version: v61
+
   - name : Download and unarchive Terraform 0.12.23
     become: no
     tags:
