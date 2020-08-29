@@ -100,6 +100,7 @@
       - python3.8-dev
       - python-psycopg2
       - rustc
+      - gnome-tweak-tool
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
