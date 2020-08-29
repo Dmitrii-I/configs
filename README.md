@@ -1,6 +1,14 @@
 # configs
-My configuration and dot files. Install with:
+
+## Examples
 
 ```
-wget -qO- https://raw.githubusercontent.com/Dmitrii-I/configs/master/install-all-configs.sh | bash
+ansible-playbook configure-e7250.yml \
+    --connection=local \
+    --inventory 127.0.0.1, \
+    --become \
+    --ask-become-pass \
+    --verbose \
+    --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@gmail.com \
+    --tags=gnome
 ```
