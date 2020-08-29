@@ -333,6 +333,8 @@
 
   - name: Create a directory for Gnome shells
     become: no
+    tags:
+      - gnome
     file:
       path: ~/.local/share/gnome-shell/extensions
       state: directory
@@ -340,6 +342,8 @@
 
   - name: Install `Put Window` GNOME shell extension
     become: no
+    tags:
+      - gnome
     git:
       repo: 'https://github.com/negesti/gnome-shell-extensions-negesti.git'
       dest: ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org
@@ -401,6 +405,7 @@
     become: no
     tags:
       - gsettings
+      - gnome
     shell: gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 
   - name: Install numpy
