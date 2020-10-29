@@ -1,0 +1,570 @@
+# This playbook configures my `ibis` notebook that runs Ubuntu 20.04.
+#
+# Steps:
+# - plugin the USB drive `Seagull32GB` (it contains the SSH keys)
+# - download this playbook
+# - install ansible
+# - run this playbook
+#
+# ansible-playbook configure-ibis.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com
+
+---
+- hosts: all
+
+  tasks:
+
+  - name: Add key with which Ubuntu archives on CRAN are signed
+    become: yes
+    tags:
+      - apt
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+      state: present
+
+  - name: Add Tuxedo Computers APT key
+    become: yes
+    tags:
+      - apt
+    apt_key:
+      url: http://deb.tuxedocomputers.com/0x54840598.pub.asc
+      state: present
+
+  - name: Add APT repo of Tuxedo Computers
+    become: yes
+    tags:
+      - apt
+    apt_repository:
+      repo: deb http://deb.tuxedocomputers.com/ubuntu focal main
+      state: present
+
+  - name: Add APT repo for R
+    become: yes
+    tags:
+      - apt
+    apt_repository:
+      repo: deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/
+      state: present
+
+  - name: Add PostgreSQL APT key
+    become: yes
+    tags:
+      - postgresql
+      - apt
+    apt_key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      state: present
+
+  - name: Add PostgreSQL APT repo
+    become: yes
+    tags:
+      - postgresql
+      - apt
+    apt_repository:
+      repo: deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main
+      state: present
+
+  - name: Update APT packages info
+    become: yes
+    tags:
+      - apt
+    apt:
+      update_cache: yes
+
+  - name: Upgrade APT packages
+    become: yes
+    tags:
+      - apt
+    apt:
+      upgrade: 'yes'
+
+  - name: Install a list of packages
+    tags:
+      - apt
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - git
+      - vim
+      - ubuntu-restricted-extras
+      - whois
+      - httpie
+      - curl
+      - gnuplot
+      - jq
+      - r-base-core
+      - libcurl4-openssl-dev
+      - libssl-dev
+      - libxml2-dev
+      - traceroute
+      - tree
+      - minidlna
+      - net-tools
+      - shellcheck
+      - pwgen
+      - direnv
+      - postgresql-client-12
+      - postgresql-12
+      - gnome-tweak-tool
+      - python3-pip
+      - python3-psycopg2
+      - rustc
+      - tuxedo-control-center
+      - chromium-browser-l10n
+
+  - name: Create ~/.local/bin directory (e.g. Terraform needs it)
+    become: no
+    file:
+      path: ~/.local/bin
+      state: directory
+      mode: 0700
+
+  - name: Create ~/.ssh directory
+    tags:
+      - ssh
+    become: no
+    file:
+      path: ~/.ssh
+      state: directory
+      mode: 0700
+
+  - name: Copy private SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa
+    become: no
+    tags:
+      - ssh
+    copy:
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa
+        dest: ~/.ssh/id_rsa
+        mode: '0600'
+
+  - name: Copy public SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa.pub
+    become: no
+    tags:
+      - ssh
+    copy:
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa.pub
+        dest: ~/.ssh/id_rsa.pub
+        mode: '0600'
+
+  - name: Make vim the default editor
+    become: no
+    lineinfile:
+      create: yes
+      path: ~/.selected_editor
+      regexp: 'SELECTED'
+      line: SELECTED_EDITOR="/usr/bin/vim.basic"
+
+  - name: Remove useless packages from the cache
+    apt:
+      autoclean: yes
+
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
+
+  - name: Set global git username
+    become: no
+    git_config:
+      name: user.name
+      scope: global
+      value: "{{ git_user_name }}"
+
+  - name: Set global git email
+    become: no
+    git_config:
+      name: user.email
+      scope: global
+      value: "{{ git_user_email }}"
+
+  - name: Set git editor
+    become: no
+    git_config:
+      name: core.editor
+      scope: global
+      value: vim
+
+  - name: Download bashrc
+    tags:
+      - bash
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
+      dest: ~/.bashrc
+      mode: 0600
+      force: yes
+
+  - name: Download bash_profile
+    become: no
+    tags:
+      - bash
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
+      dest: ~/.bash_profile
+      mode: 0600
+      force: yes
+
+  - name: Download psqlrc
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/psqlrc
+      dest: ~/.psqlrc
+      mode: 0600
+      force: yes
+
+  - name: Download sqliterc
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/sqliterc
+      dest: ~/.sqliterc
+      mode: 0600
+      force: yes
+
+  - name: Download vimrc
+    become: no
+    tags:
+      - vim
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/vimrc
+      dest: ~/.vimrc
+      mode: 0600
+      force: yes
+
+  - name: Create ~/.vim/autoload directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/autoload
+      state: directory
+      mode: 0755
+
+  - name: Create ~/.vim/bundle directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle
+      state: directory
+      mode: 0755
+
+  - name: Create ~/.vim/undo directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/undo
+      state: directory
+      mode: 0755
+
+  - name: Download pathogen.vim
+    tags:
+      - vim
+    become: no
+    get_url:
+      url: https://tpo.pe/pathogen.vim
+      dest: ~/.vim/autoload/pathogen.vim
+      mode: 0644
+      force: yes
+
+  - name: Delete dir ~/.vim/bundle/vim-colors-solarized before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-colors-solarized
+      state: absent
+
+  - name: Install vim-colors-solarized (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/altercation/vim-colors-solarized.git'
+      dest: ~/.vim/bundle/vim-colors-solarized
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Delete dir ~/.vim/bundle/vim-terraform before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-terraform
+      state: absent
+
+  - name: Install vim-terraform (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/hashivim/vim-terraform.git'
+      dest: ~/.vim/bundle/vim-terraform
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Delete dir ~/.vim/bundle/vim-airline before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-airline
+      state: absent
+
+  - name: Install vim-airline (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/vim-airline/vim-airline.git'
+      dest: ~/.vim/bundle/vim-airline
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Delete dir ~/.vim/bundle/vim-toml before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-toml
+      state: absent
+
+  - name: Install vim-toml
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/cespare/vim-toml.git'
+      dest: ~/.vim/bundle/toml
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Create a directory for Gnome shells
+    become: no
+    tags:
+      - gnome
+    file:
+      path: ~/.local/share/gnome-shell/extensions
+      state: directory
+      mode: 0755
+
+  - name: Install `Put Window` GNOME shell extension
+    become: no
+    tags:
+      - gnome
+    git:
+      repo: 'https://github.com/negesti/gnome-shell-extensions-negesti.git'
+      dest: ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org
+      clone: yes
+      force: yes
+      update: yes
+      version: v29
+
+  - name: Install `ShellTile` GNOME shell extension
+    become: no
+    tags:
+      - gnome
+    git:
+      repo: 'https://github.com/emasab/shelltile.git'
+      dest: ~/.local/share/gnome-shell/extensions/ShellTile@emasab.it
+      clone: yes
+      force: yes
+      update: no
+      version: v61
+
+  - name: Install `awscli`
+    tags:
+      - python
+    become: no
+    pip:
+      name: awscli
+      executable: pip3
+
+  - name : Download and unarchive Terraform 0.12.23
+    become: no
+    tags:
+      - terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip
+      dest: ~/.local/bin/
+      remote_src: yes
+
+  - name: Install RStudio
+    become: yes
+    tags:
+      - R
+    apt:
+      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.3.1093-amd64.deb
+
+  - name: Install Dropbox
+    become: yes
+    tags:
+      - dropbox
+    apt:
+      deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+
+  - name: Install R package `renv`
+    become: yes
+    tags:
+      - R_packages
+      - renv
+    shell: Rscript --vanilla -e 'install.packages("renv", repos=c("https://cloud.r-project.org"))'
+
+  - name: Install fzf binary
+    become: yes
+    unarchive:
+      src: https://github.com/junegunn/fzf-bin/releases/download/0.18.0/fzf-0.18.0-linux_amd64.tgz
+      dest: /usr/local/bin
+      remote_src: yes
+
+  - name: Install PyCharm from snap
+    become: yes
+    tags:
+      - pycharm
+    shell: snap install pycharm-professional --classic
+
+  - name: Install bitwarden from snap
+    become: yes
+    tags:
+      - bitwarden
+    shell: snap install bitwarden --classic
+
+  - name: Install bitwarden CLI from snap
+    become: yes
+    tags:
+      - bitwarden
+    shell: snap install bw
+
+  - name: Disable natural scrolling. Does not feel natural to me. Don't force Apple-isms on me Ubuntu.
+    become: no
+    tags:
+      - gsettings
+      - gnome
+    shell: gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+
+  - name: Configure credentials for AWS profile 8448bac1-e7cc-43d6-8759-aad2013af98b
+    tags:
+      - aws
+    become: no
+    shell: |
+      aws_access_key_id=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_access_key_id")) | .value' --raw-output)
+      aws_secret_access_key=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_secret_access_key")) | .value' --raw-output)
+      aws_default_region=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_default_region")) | .value' --raw-output)
+      aws_profile=$(bw get item 8448bac1-e7cc-43d6-8759-aad2013af98b | jq '.fields[] | select(.name | contains("aws_profile")) | .value' --raw-output)
+      aws configure --profile "$aws_profile" set aws_access_key_id "$aws_access_key_id"
+      aws configure --profile "$aws_profile" set aws_secret_access_key "$aws_secret_access_key"
+      aws configure --profile "$aws_profile" set region "$aws_default_region"
+
+  - name: Setup a terraform config file d4fdd84d-2be2-4ec1-835f-ab8d01190e3a
+    tags:
+      - terraform
+    become: no
+    args:
+      executable: /bin/bash
+    shell: |
+      set -o nounset      # exit with non-zero status if expansion is attempted on an unset variable
+      set -o errexit      # exit immediatelly if a pipeline, a list, or a compound command fails
+      set -o pipefail     # failures in pipe in the commands before last one, also count as failures
+
+      token="$(bw get item d4fdd84d-2be2-4ec1-835f-ab8d01190e3a | jq '.fields[] | select(.name | contains("api_token_token1")) | .value' --raw-output)"
+      file="$(bw get item d4fdd84d-2be2-4ec1-835f-ab8d01190e3a | jq '.fields[] | select(.name | contains("terraform_config_file")) | .value' --raw-output)"
+      echo -e "credentials \"app.terraform.io\" {\n  token = \"${token}\"\n}" > ~/$file
+
+  - name: Configure SportMonks API key
+    tags:
+      - sportmonks
+      - bw
+      - secrets
+    become: no
+    shell: bw get item 3ae401ca-a415-4c16-8956-aab3013b0ded | jq .notes --raw-output > ~/.sportmonks_api_key
+
+  - name: Configure credentials for an AWS profile 0b71852b-762b-4c2a-a736-ab99010801a0
+    tags:
+      - aws
+    become: no
+    shell: |
+      aws_access_key_id=$(bw get item 0b71852b-762b-4c2a-a736-ab99010801a0 | jq '.fields[] | select(.name | contains("aws_access_key_id")) | .value' --raw-output)
+      aws_secret_access_key=$(bw get item 0b71852b-762b-4c2a-a736-ab99010801a0 | jq '.fields[] | select(.name | contains("aws_secret_access_key")) | .value' --raw-output)
+      aws_default_region=$(bw get item 0b71852b-762b-4c2a-a736-ab99010801a0 | jq '.fields[] | select(.name | contains("aws_default_region")) | .value' --raw-output)
+      aws_profile=$(bw get item 0b71852b-762b-4c2a-a736-ab99010801a0 | jq '.fields[] | select(.name | contains("aws_profile")) | .value' --raw-output)
+      aws configure --profile "$aws_profile" set aws_access_key_id "$aws_access_key_id"
+      aws configure --profile "$aws_profile" set aws_secret_access_key "$aws_secret_access_key"
+      aws configure --profile "$aws_profile" set region "$aws_default_region"
+
+  - name: Configure credentials for an AWS profile a9a6a641-6e45-493b-aa67-ab9b01054167
+    tags:
+      - aws
+    become: no
+    shell: |
+      aws_access_key_id=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_access_key_id")) | .value' --raw-output)
+      aws_secret_access_key=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_secret_access_key")) | .value' --raw-output)
+      aws_default_region=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_default_region")) | .value' --raw-output)
+      aws_profile=$(bw get item a9a6a641-6e45-493b-aa67-ab9b01054167 | jq '.fields[] | select(.name | contains("aws_profile")) | .value' --raw-output)
+      aws configure --profile "$aws_profile" set aws_access_key_id "$aws_access_key_id"
+      aws configure --profile "$aws_profile" set aws_secret_access_key "$aws_secret_access_key"
+      aws configure --profile "$aws_profile" set region "$aws_default_region"
+
+  - name: Setup a terraform config file 05225050-9e45-4cd7-a635-ab9e014c73f7
+    tags:
+      - terraform
+    become: no
+    args:
+      executable: /bin/bash
+    shell: |
+      set -o nounset      # exit with non-zero status if expansion is attempted on an unset variable
+      set -o errexit      # exit immediatelly if a pipeline, a list, or a compound command fails
+      set -o pipefail     # failures in pipe in the commands before last one, also count as failures
+
+      token="$(bw get item 05225050-9e45-4cd7-a635-ab9e014c73f7 | jq '.fields[] | select(.name | contains("api_token_token1")) | .value' --raw-output)"
+      file="$(bw get item 05225050-9e45-4cd7-a635-ab9e014c73f7 | jq '.fields[] | select(.name | contains("config_file")) | .value' --raw-output)"
+      echo -e "credentials \"app.terraform.io\" {\n  token = \"${token}\"\n}" > ~/$file
+
+  - name: Create postgresql superuser $USER
+    become_user: postgres
+    tags:
+      - postgresql
+    postgresql_user:
+      name: "{{ lookup('env','USER') }}"
+      role_attr_flags: SUPERUSER
+
+  - name: Ensure a locale exists
+    become: yes
+    tags:
+      - locale
+    locale_gen:
+      name: en_GB.UTF-8
+      state: present
+
+  - name: Configure locale
+    become: yes
+    tags:
+      - locale
+    shell: |
+      update-locale LANG=en_GB.UTF-8
+      update-locale LANGUAGE=en_GB.UTF-8
+      update-locale LC_CTYPE=en_GB.UTF-8
+      update-locale LC_NUMERIC=en_GB.UTF-8
+      update-locale LC_TIME=en_GB.UTF-8
+      update-locale LC_COLLATE=en_GB.UTF-8
+      update-locale LC_MONETARY=en_GB.UTF-8
+      update-locale LC_MESSAGES=en_GB.UTF-8
+      update-locale LC_PAPER=en_GB.UTF-8
+      update-locale LC_NAME=en_GB.UTF-8
+      update-locale LC_ADDRESS=en_GB.UTF-8
+      update-locale LC_TELEPHONE=en_GB.UTF-8
+      update-locale LC_MEASUREMENT=en_GB.UTF-8
+      update-locale LC_IDENTIFICATION=en_GB.UTF-8
+      update-locale LC_ALL=en_GB.UTF-8
+
+  - name: Install pgen
+    become: no
+    tags:
+      - pgen
+      - cargo
+      - rust
+      - apt
+    shell: cargo install pgen
