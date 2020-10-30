@@ -3,10 +3,10 @@
 # Steps:
 # - plugin the USB drive `Seagull32GB` (it contains the SSH keys)
 # - download this playbook
-# - install ansible
+# - install ansible: audo apt install ansible
 # - run this playbook
 #
-# ansible-playbook configure-ibis.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com
+# ansible-playbook configure-ibis.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com -e 'ansible_python_interpreter=/usr/bin/python3' --tags=apt,python
 
 ---
 - hosts: all
@@ -400,6 +400,14 @@
     become: no
     pip:
       name: awscli
+      executable: pip3
+
+  - name: Install `grip` (GitHub markdown previewer)
+    tags:
+      - python
+    become: no
+    pip:
+      name: grip
       executable: pip3
 
   - name : Download and unarchive Terraform 0.12.23
