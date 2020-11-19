@@ -125,6 +125,7 @@
       - gnome-tweak-tool
       - python3-pip
       - python3-psycopg2
+      - python3-venv
       - rustc
       - tuxedo-control-center
       - chromium-browser-l10n
