@@ -84,3 +84,12 @@ export LS_COLORS
 dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/word-char-exceptions '@ms "-#%&+,./:=?@_~"'
 
 command -v direnv > /dev/null 2>&1 && eval "$(direnv hook bash)"
+
+# Add colors to man pages (https://blog.yossarian.net/2018/01/22/Reading-Manpages-Like-a-Pro)
+export LESS_TERMCAP_mb="$(printf "\e[1;31m")"
+export LESS_TERMCAP_md="$(printf "\e[1;31m")"
+export LESS_TERMCAP_me="$(printf "\e[0m")"
+export LESS_TERMCAP_se="$(printf "\e[0m")"
+export LESS_TERMCAP_so="$(printf "\e[1;44;33m")"
+export LESS_TERMCAP_ue="$(printf "\e[0m")" \
+export LESS_TERMCAP_us="$(printf "\e[1;32m")"
