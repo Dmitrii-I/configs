@@ -395,6 +395,15 @@
       update: no
       version: v61
 
+  - name: Install `tldr`
+    tags:
+      - python
+      - tldr
+    become: no
+    pip:
+      name: tldr
+      executable: pip3
+
   - name: Install `awscli`
     tags:
       - python
