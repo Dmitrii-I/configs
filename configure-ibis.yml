@@ -614,3 +614,12 @@
       - rust
       - apt
     shell: cargo install pgen
+
+  - name: Install `glosm`
+    tags:
+      - python
+      - glosm
+    become: yes
+    pip:
+      name: glosm==0.6.2
+      executable: pip3
