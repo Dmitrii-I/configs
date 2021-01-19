@@ -448,7 +448,7 @@
     tags:
       - dbeaver
     apt:
-      deb: https://github.com/dbeaver/dbeaver/releases/download/7.3.2/dbeaver-ce_7.3.2_amd64.deb
+      deb: https://github.com/dbeaver/dbeaver/releases/download/7.3.3/dbeaver-ce_7.3.3_amd64.deb
 
   - name: Install R package `renv`
     become: yes
