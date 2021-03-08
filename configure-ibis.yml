@@ -132,6 +132,7 @@
       - virtualbox-6.1
       - python3-gpg  # for Dropbox
       - kolourpaint
+      - pdfgrep
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
