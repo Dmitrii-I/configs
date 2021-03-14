@@ -452,6 +452,13 @@
     apt:
       deb: https://github.com/dbeaver/dbeaver/releases/download/7.3.3/dbeaver-ce_7.3.3_amd64.deb
 
+  - name: Install gscan2pdf
+    become: yes
+    tags:
+      - gscan2pdf
+    apt:
+      deb: https://deac-ams.dl.sourceforge.net/project/gscan2pdf/gscan2pdf/2.6.7/gscan2pdf_2.6.7-1_all.deb
+
   - name: Install R package `renv`
     become: yes
     tags:
