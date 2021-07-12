@@ -144,6 +144,7 @@
       - python3.6
       - python3.6-venv
       - python3-tk
+      - ripgrep
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
