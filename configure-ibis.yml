@@ -653,3 +653,12 @@
     pip:
       name: glosm==0.6.2
       executable: pip3
+
+  - name: Install `checksumdir`
+    tags:
+      - python
+      - checksumdir
+    become: yes
+    pip:
+      name: checksumdir==1.2.0
+      executable: pip3
