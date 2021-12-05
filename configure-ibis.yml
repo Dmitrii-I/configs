@@ -390,29 +390,23 @@
       state: directory
       mode: 0755
 
-  - name: Install `Put Window` GNOME shell extension
-    become: no
+  - name: Create ~/.local/share/gnome-shell/extensions/wintile@nowsci.com directory
     tags:
-      - gnome
-    git:
-      repo: 'https://github.com/negesti/gnome-shell-extensions-negesti.git'
-      dest: ~/.local/share/gnome-shell/extensions/putWindow@clemens.lab21.org
-      clone: yes
-      force: yes
-      update: yes
-      version: v29
+      - wintile
+    become: no
+    file:
+      path: ~/.local/share/gnome-shell/extensions/wintile@nowsci.com
+      state: directory
 
-  - name: Install `ShellTile` GNOME shell extension
+  - name : Install WinTile GNOME extension
+    # https://extensions.gnome.org/extension/1723/wintile-windows-10-window-tiling-for-gnome/
     become: no
     tags:
-      - gnome
-    git:
-      repo: 'https://github.com/emasab/shelltile.git'
-      dest: ~/.local/share/gnome-shell/extensions/ShellTile@emasab.it
-      clone: yes
-      force: yes
-      update: no
-      version: v61
+      - wintile
+    unarchive:
+      src: https://extensions.gnome.org/extension-data/wintilenowsci.com.v7.shell-extension.zip
+      dest: ~/.local/share/gnome-shell/extensions/wintile@nowsci.com
+      remote_src: yes
 
   - name: Install `tldr`
     tags:
