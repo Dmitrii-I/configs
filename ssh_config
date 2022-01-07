@@ -1,0 +1,6 @@
+# SSH config file for my user
+
+StrictHostKeyChecking ask
+HashKnownHosts no
+CheckHostIP yes
+Protocol 2

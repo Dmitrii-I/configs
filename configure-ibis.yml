@@ -185,6 +185,15 @@
         dest: ~/.ssh/id_rsa.pub
         mode: '0600'
 
+  - name: Copy SSH config into ~/.ssh/config
+    become: no
+    tags:
+      - ssh_config
+    copy:
+        src: ssh_config
+        dest: ~/.ssh/config
+        mode: '0644'
+
   - name: Make vim the default editor
     become: no
     lineinfile:
