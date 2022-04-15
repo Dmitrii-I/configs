@@ -154,6 +154,7 @@
       - freeglut3  # OpenGL for Qt 6 https://stackoverflow.com/a/67205123
       - freeglut3-dev  # OpenGL for Qt 6 https://stackoverflow.com/a/67205123
       - libpq-dev
+      - qpdfview  # because evince document viewer is not saving settings as default
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
