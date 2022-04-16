@@ -78,6 +78,15 @@
       - apt
     apt_repository:
       repo: deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main
+      state: absent
+
+  - name: Remove PostgreSQL APT repo that does not specify arch
+    become: yes
+    tags:
+      - postgresql
+      - apt
+    apt_repository:
+      repo: deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main
       state: present
 
   - name: Add deadsnakes repo for older Python versions
