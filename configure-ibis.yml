@@ -96,6 +96,7 @@
       - apt
     apt_repository:
       repo: 'ppa:deadsnakes/ppa'
+      state: present
 
   - name: Update APT packages info
     become: yes
