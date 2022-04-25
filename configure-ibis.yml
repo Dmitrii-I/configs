@@ -462,7 +462,7 @@
     tags:
       - R
     apt:
-      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2021.09.0-351-amd64.deb
+      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.02.1-461-amd64.deb
 
   - name: Install Dropbox
     become: yes
