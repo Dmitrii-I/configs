@@ -530,6 +530,13 @@
       - gnome
     shell: gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 
+  - name: 'Enable right Alt key as compose key so that we can type alt " o and get ö'
+    become: no
+    tags:
+      - gsettings
+      - gnome
+    shell: gsettings set org.gnome.desktop.input-sources xkb-options "['compose:ralt']"
+
   - name: Reverse Alt Tab and Super Tab keyboard shortcut
     become: no
     tags:
