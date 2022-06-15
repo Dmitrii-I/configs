@@ -150,6 +150,7 @@
       - qpdfview  # because evince document viewer is not saving settings as default
       - visidata
       - cmake
+      - pdftk
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
