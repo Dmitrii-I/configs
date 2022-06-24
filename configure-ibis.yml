@@ -491,6 +491,12 @@
       - pycharm
     shell: snap install pycharm-professional --classic
 
+  - name: Install Visual Studio Code from snap
+    become: yes
+    tags:
+      - vsc
+    shell: snap install code --classic
+
   - name: Install vlc player from snap
     become: yes
     tags:
