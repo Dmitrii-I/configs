@@ -151,6 +151,7 @@
       - visidata
       - cmake
       - pdftk
+      - sqlite3
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
