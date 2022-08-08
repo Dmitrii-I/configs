@@ -681,11 +681,38 @@
       name: checksumdir==1.2.0
       executable: pip3
 
-  - name: Install docker
+  - name: Add Docker's GPG key
     become: yes
     tags:
       - docker
-    shell: |
-      apt install docker.io --yes
-      apt install docker-compose --yes
-      usermod --append --groups docker {{ my_user }}
+    ansible.builtin.get_url:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      dest: /etc/apt/trusted.gpg.d/docker.asc
+
+  - name: Add Docker's repo
+    become: yes
+    tags:
+      - docker
+    ansible.builtin.apt_repository:
+      repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+      state: present
+
+  # see https://docs.docker.com/engine/install/ubuntu/
+  - name: Install docker
+    tags:
+      - docker
+    apt:
+      name: "{{ packages }}"
+      update_cache: yes
+    vars:
+      packages:
+        - docker-ce
+    notify:
+      Add my user to docker group
+
+  handlers:
+  - name: Add my user to docker group
+    become: yes
+    tags:
+      - docker
+    shell: usermod --append --groups docker {{ my_user }}
