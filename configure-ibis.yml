@@ -6,7 +6,7 @@
 # - install ansible: audo apt install ansible
 # - run this playbook
 #
-# ansible-playbook configure-ibis.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com -e 'ansible_python_interpreter=/usr/bin/python3' --tags=apt,python
+# ansible-playbook configure-ibis.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com --extra-vars my_user=d -e 'ansible_python_interpreter=/usr/bin/python3' --tags=apt,python
 
 ---
 - hosts: all
@@ -152,7 +152,6 @@
       - cmake
       - pdftk
       - sqlite3
-      - docker.io
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
@@ -681,3 +680,11 @@
     pip:
       name: checksumdir==1.2.0
       executable: pip3
+
+  - name: Install docker
+    become: yes
+    tags:
+      - docker
+    shell: |
+      apt install docker.io
+      usermod --append --groups docker {{ my_user }}
