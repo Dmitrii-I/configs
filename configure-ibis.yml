@@ -686,5 +686,6 @@
     tags:
       - docker
     shell: |
-      apt install docker.io
+      apt install docker.io --yes
+      apt install docker-compose --yes
       usermod --append --groups docker {{ my_user }}
