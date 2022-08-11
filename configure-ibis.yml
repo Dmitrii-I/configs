@@ -152,6 +152,7 @@
       - cmake
       - pdftk
       - sqlite3
+      - iftop
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
