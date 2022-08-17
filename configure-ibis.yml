@@ -146,6 +146,7 @@
       - gscan2pdf
       - cargo
       - libffi-dev
+      - gnome-shell-extension-manager
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
@@ -412,6 +413,17 @@
       src: https://extensions.gnome.org/extension-data/wintilenowsci.com.v7.shell-extension.zip
       dest: ~/.local/share/gnome-shell/extensions/wintile@nowsci.com
       remote_src: yes
+
+  # WinTile does not work with gnome-shell version 42. A small fix is to add "42.0" to
+  # the metadata.json.
+  - name: Copy modified WinTile metadata.json
+    become: no
+    tags:
+      - wintile
+    copy:
+        src: metadata_wintile.json
+        dest: ~/.local/share/gnome-shell/extensions/wintile@nowsci.com/metadata.json
+        mode: '0600'
 
   - name: Install `tldr`
     tags:
