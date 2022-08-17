@@ -2,9 +2,10 @@
 #
 # Steps:
 # - plugin the USB drive `Seagull32GB` (it contains the SSH keys)
-# - download this playbook
+# - download the repo as zip file and unzip it
 # - install ansible: audo apt install ansible
 # - run this playbook
+#   - this playbook will fail because some of the tasks depend on `bw` cli utility which requires manual login
 #
 # ansible-playbook configure-ibis.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com --extra-vars my_user=d -e 'ansible_python_interpreter=/usr/bin/python3' --tags=apt,python
 
@@ -35,7 +36,7 @@
     tags:
       - apt
     apt_repository:
-      repo: deb http://deb.tuxedocomputers.com/ubuntu focal main
+      repo: deb http://deb.tuxedocomputers.com/ubuntu jammy main
       state: present
 
   - name: Add APT repo for R
@@ -43,7 +44,7 @@
     tags:
       - apt
     apt_repository:
-      repo: deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/
+      repo: deb https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/
       state: present
 
   - name: Add PostgreSQL APT key
@@ -55,22 +56,13 @@
       url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
       state: present
 
-  - name: Add PostgreSQL APT repo
-    become: yes
-    tags:
-      - postgresql
-      - apt
-    apt_repository:
-      repo: deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main
-      state: absent
-
   - name: Remove PostgreSQL APT repo that does not specify arch
     become: yes
     tags:
       - postgresql
       - apt
     apt_repository:
-      repo: deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main
+      repo: deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main
       state: present
 
   - name: Add deadsnakes repo for older Python versions
@@ -124,18 +116,16 @@
       - direnv
       - postgresql-client-14
       - postgresql-14
-      - gnome-tweak-tool
+      - gnome-tweaks
       - python3-pip
       - python3-psycopg2
       - python3-venv
       - rustc
       - tuxedo-control-center
-      - chromium-browser-l10n
+      - chromium
       - python3-gpg  # for Dropbox
       - kolourpaint
       - pdfgrep
-      - python3.6
-      - python3.6-venv
       - python3-tk
       - ripgrep
       - python3.9
@@ -153,6 +143,9 @@
       - pdftk
       - sqlite3
       - iftop
+      - gscan2pdf
+      - cargo
+      - libffi-dev
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
@@ -450,14 +443,14 @@
     tags:
       - R
     apt:
-      deb: https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.07.1-554-amd64.deb
+      deb: https://download1.rstudio.org/desktop/jammy/amd64/rstudio-2022.07.1-554-amd64.deb
 
   - name: Install Dropbox
     become: yes
     tags:
       - dropbox
     apt:
-      deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+      deb: https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb
 
   - name: Install DBeaver
     become: yes
@@ -465,13 +458,6 @@
       - dbeaver
     apt:
       deb: https://github.com/dbeaver/dbeaver/releases/download/7.3.3/dbeaver-ce_7.3.3_amd64.deb
-
-  - name: Install gscan2pdf
-    become: yes
-    tags:
-      - gscan2pdf
-    apt:
-      deb: https://deac-ams.dl.sourceforge.net/project/gscan2pdf/gscan2pdf/2.6.7/gscan2pdf_2.6.7-1_all.deb
 
   - name: Install R package `renv`
     become: yes
