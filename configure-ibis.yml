@@ -709,6 +709,33 @@
     notify:
       Add my user to docker group
 
+  - name: Create temp dir for nim tarball
+    tags:
+      - nim
+    become: no
+    ansible.builtin.tempfile:
+      state: directory
+      suffix: nim-tarball
+    register: nim_temp_dir
+
+  - name: Download and extract nim tarball
+    tags:
+      - nim
+    become: no
+    unarchive:
+      src: https://nim-lang.org/download/nim-1.6.6-linux_x64.tar.xz
+      dest: "{{ nim_temp_dir.path }}"
+      remote_src: yes
+
+  - name: Install nim from temp dir
+    tags:
+      - nim
+    become: no
+    shell: |
+      cd "{{ nim_temp_dir.path }}"
+      cd "$(ls -1 | head -1)"
+      cp bin/* ~/.local/bin
+
   handlers:
   - name: Add my user to docker group
     become: yes
