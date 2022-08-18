@@ -730,11 +730,14 @@
   - name: Install nim from temp dir
     tags:
       - nim
-    become: no
+    become: yes
     shell: |
+      cd /opt
+      rm -rf /opt/nim
+      mkdir /opt/nim
       cd "{{ nim_temp_dir.path }}"
       cd "$(ls -1 | head -1)"
-      cp bin/* ~/.local/bin
+      cp -R . /opt/nim/
 
   handlers:
   - name: Add my user to docker group
