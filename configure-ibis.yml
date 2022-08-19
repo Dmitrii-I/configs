@@ -147,6 +147,7 @@
       - cargo
       - libffi-dev
       - gnome-shell-extension-manager
+      - devscripts  # to get checkbashisms
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
