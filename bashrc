@@ -37,7 +37,7 @@ alias gm='git commit'
 alias ga='git add'
 
 
-PATH=$PATH:/usr/sbin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/opt/nim/bin
+PATH=$PATH:/usr/sbin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/opt/nim/bin:/usr/local/go/bin
 export PATH
 
 
