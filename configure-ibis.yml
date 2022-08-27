@@ -463,6 +463,12 @@
       - pycharm
     shell: snap install pycharm-professional --classic
 
+  - name: Install GoLand from snap
+    become: yes
+    tags:
+      - goland
+    shell: snap install goland --classic
+
   - name: Install Visual Studio Code from snap
     become: yes
     tags:
