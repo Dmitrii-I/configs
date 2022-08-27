@@ -88,6 +88,16 @@
     apt:
       upgrade: 'yes'
 
+  - name: Uninstall a list of packages
+    tags:
+      - apt
+    apt:
+      name: "{{ packages }}"
+      state: absent
+    vars:
+      packages:
+      - golang-go
+
   - name: Install a list of packages
     tags:
       - apt
@@ -716,6 +726,25 @@
       cd "{{ nim_temp_dir.path }}"
       cd "$(ls -1 | head -1)"
       cp -R . /opt/nim/
+
+
+  - name: Download golang tarball
+    tags:
+      - golang
+    become: yes
+    ansible.builtin.get_url:
+      url: https://go.dev/dl/go1.19.linux-amd64.tar.gz
+      checksum: sha256:464b6b66591f6cf055bc5df90a9750bf5fbc9d038722bb84a9d56a2bea974be6
+      dest: /tmp/go.tar.gz
+
+  - name: Install golang
+    tags:
+      - golang
+    become: yes
+    shell: |
+      rm -rf /usr/local/go
+      tar --directory=/usr/local -xzf /tmp/go.tar.gz
+      rm -rf /tmp/go/go.tar.gz
 
   handlers:
   - name: Add my user to docker group
