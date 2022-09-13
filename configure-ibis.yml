@@ -159,6 +159,8 @@
       - gnome-shell-extension-manager
       - devscripts  # to get checkbashisms
       - libfontconfig1-dev
+      - libharfbuzz-dev
+      - libfribidi-dev
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
