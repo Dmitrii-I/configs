@@ -161,6 +161,10 @@
       - libfontconfig1-dev
       - libharfbuzz-dev
       - libfribidi-dev
+      - libfreetype6-dev
+      - libpng-dev
+      - libtiff5-dev
+      - libjpeg-dev
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
