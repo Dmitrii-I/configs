@@ -410,6 +410,25 @@
       force: yes
       update: no
 
+  - name: Delete dir ~/.vim/bundle/ale before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/ale
+      state: absent
+
+  - name: Install ALE
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/dense-analysis/ale.git'
+      dest: ~/.vim/bundle/ale
+      clone: yes
+      force: yes
+      update: no
+
   - name: Create a directory for Gnome shells
     become: no
     tags:
