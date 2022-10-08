@@ -96,3 +96,17 @@ export LESS_TERMCAP_ue="$(printf "\e[0m")" \
 export LESS_TERMCAP_us="$(printf "\e[1;32m")"
 
 export TZ="Europe/Zurich"  # don't doxx me bro
+
+cartesian() {
+    # Print to STDOUT cartesian product of lines taken from two specified files.
+    # Credit to: https://stackoverflow.com/questions/1620946/cartesian-product-of-two-files-as-sets-of-lines-in-gnu-linux
+    file_left="$1"
+    file_right="$2"
+    sep="${3:-,}"
+
+    while read -r a; do
+        while read -r b; do
+            echo "${a}${sep}${b}"
+        done < "${file_right}"
+    done < "${file_left}"
+}
