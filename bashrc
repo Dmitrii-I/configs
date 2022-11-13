@@ -110,3 +110,6 @@ cartesian() {
         done < "${file_right}"
     done < "${file_left}"
 }
+
+export GH_TOKEN="$(glosm get github dmitrii-i github-cli-api-token)"
+
