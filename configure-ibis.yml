@@ -778,6 +778,13 @@
       tar --directory=/usr/local -xzf /tmp/go.tar.gz
       rm -rf /tmp/go/go.tar.gz
 
+  - name: Install GitHub CLI v2.20.0
+    become: yes
+    tags:
+      - github
+    apt:
+      deb: https://github.com/cli/cli/releases/download/v2.20.0/gh_2.20.0_linux_amd64.deb
+
   handlers:
   - name: Add my user to docker group
     become: yes
