@@ -38,6 +38,7 @@ alias ga='git add'
 alias gf='git fetch'
 alias gb='git branch'
 alias gc='git checkout'
+alias gl='git log --oneline'
 
 PATH=$PATH:/usr/sbin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/opt/nim/bin:/usr/local/go/bin
 export PATH
