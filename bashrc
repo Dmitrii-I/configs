@@ -35,7 +35,9 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gm='git commit'
 alias ga='git add'
-
+alias gf='git fetch'
+alias gb='git branch'
+alias gc='git checkout'
 
 PATH=$PATH:/usr/sbin:$HOME/.local/bin:$HOME/bin:$HOME/.cargo/bin:/opt/nim/bin:/usr/local/go/bin
 export PATH
