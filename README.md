@@ -17,3 +17,6 @@ ansible-playbook configure-e7250.yml \
     --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@gmail.com \
     --tags=gnome
 ```
+
+## WinTile
+Install WinTile from https://extensions.gnome.org//extension/1723/wintile-windows-10-window-tiling-for-gnome/ and then copy `metadata_wintile.json` to `~/.local/share/gnome-shell/extensions/wintile@nowsci.com/metadata.json` then reboot.
