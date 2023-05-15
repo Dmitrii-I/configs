@@ -171,6 +171,7 @@
       - python3.8-venv
       - aspell-de
       - fd-find
+      - pass
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
