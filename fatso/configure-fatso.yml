@@ -1,0 +1,328 @@
+# This playbook configures my `ibis` notebook that runs Ubuntu 20.04.
+#
+# Steps:
+# - plugin the USB drive `Seagull32GB` (it contains the SSH keys)
+# - download the repo as zip file and unzip it
+# - install ansible: audo apt install ansible
+# - run this playbook
+#   - this playbook will fail because some of the tasks depend on `bw` cli utility which requires manual login
+#
+# ansible-playbook configure-ibis.yml --connection=local --inventory 127.0.0.1, --become --ask-become-pass --verbose --extra-vars git_user_name=Dmitrii-I --extra-vars git_user_email=me@someemail.com --extra-vars my_user=d -e 'ansible_python_interpreter=/usr/bin/python3' --tags=apt,python
+
+---
+- hosts: all
+
+  tasks:
+
+  - name: Upgrade APT packages
+    become: yes
+    tags:
+      - apt
+    apt:
+      upgrade: 'yes'
+
+  - name: Uninstall a list of packages
+    tags:
+      - apt
+    apt:
+      name: "{{ packages }}"
+      state: absent
+    vars:
+      packages:
+      - golang-go
+
+  - name: Install a list of packages
+    tags:
+      - apt
+    apt:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - git
+      - vim
+      - curl
+      - gnuplot
+      - jq
+      - traceroute
+      - tree
+      - net-tools
+      - shellcheck
+      - pwgen
+      - direnv
+
+  - name: Create ~/.local/bin directory (e.g. Terraform needs it)
+    become: no
+    file:
+      path: ~/.local/bin
+      state: directory
+      mode: 0700
+
+  - name: Create ~/.ssh directory
+    tags:
+      - ssh
+    become: no
+    file:
+      path: ~/.ssh
+      state: directory
+      mode: 0700
+
+  - name: Copy private SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa
+    become: no
+    tags:
+      - ssh
+    copy:
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa
+        dest: ~/.ssh/id_rsa
+        mode: '0600'
+
+  - name: Copy public SSH key from /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa.pub
+    become: no
+    tags:
+      - ssh
+    copy:
+        src: /media/{{ lookup('env','USER') }}/seagull32gb/secrets/{{ansible_hostname}}/{{ lookup('env','USER') }}/id_rsa.pub
+        dest: ~/.ssh/id_rsa.pub
+        mode: '0600'
+
+  - name: Copy SSH config into ~/.ssh/config
+    become: no
+    tags:
+      - ssh_config
+    copy:
+        src: ssh_config
+        dest: ~/.ssh/config
+        mode: '0644'
+
+  - name: Make vim the default editor
+    become: no
+    lineinfile:
+      create: yes
+      path: ~/.selected_editor
+      regexp: 'SELECTED'
+      line: SELECTED_EDITOR="/usr/bin/vim.basic"
+
+  - name: Remove useless packages from the cache
+    apt:
+      autoclean: yes
+
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
+
+  - name: Set global git username
+    become: no
+    git_config:
+      name: user.name
+      scope: global
+      value: "{{ git_user_name }}"
+
+  - name: Set global git email
+    become: no
+    git_config:
+      name: user.email
+      scope: global
+      value: "{{ git_user_email }}"
+
+  - name: Set git editor
+    become: no
+    git_config:
+      name: core.editor
+      scope: global
+      value: vim
+
+  - name: Download bashrc
+    tags:
+      - bash
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
+      dest: ~/.bashrc
+      mode: 0600
+      force: yes
+
+  - name: Download bash_profile
+    become: no
+    tags:
+      - bash
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/bashrc
+      dest: ~/.bash_profile
+      mode: 0600
+      force: yes
+
+  - name: Download psqlrc
+    become: no
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/psqlrc
+      dest: ~/.psqlrc
+      mode: 0600
+      force: yes
+
+  - name: Download vimrc
+    become: no
+    tags:
+      - vim
+    get_url:
+      url: https://raw.githubusercontent.com/Dmitrii-I/configs/master/vimrc
+      dest: ~/.vimrc
+      mode: 0600
+      force: yes
+
+  - name: Create ~/.vim/autoload directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/autoload
+      state: directory
+      mode: 0755
+
+  - name: Create ~/.vim/bundle directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle
+      state: directory
+      mode: 0755
+
+  - name: Create ~/.vim/undo directory
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/undo
+      state: directory
+      mode: 0755
+
+  - name: Download pathogen.vim
+    tags:
+      - vim
+    become: no
+    get_url:
+      url: https://tpo.pe/pathogen.vim
+      dest: ~/.vim/autoload/pathogen.vim
+      mode: 0644
+      force: yes
+
+  - name: Delete dir ~/.vim/bundle/vim-colors-solarized before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-colors-solarized
+      state: absent
+
+  - name: Install vim-colors-solarized (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/altercation/vim-colors-solarized.git'
+      dest: ~/.vim/bundle/vim-colors-solarized
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Delete dir ~/.vim/bundle/vim-terraform before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-terraform
+      state: absent
+
+  - name: Install vim-terraform (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/hashivim/vim-terraform.git'
+      dest: ~/.vim/bundle/vim-terraform
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Delete dir ~/.vim/bundle/vim-airline before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-airline
+      state: absent
+
+  - name: Install vim-airline (if fails, delete its dir)
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/vim-airline/vim-airline.git'
+      dest: ~/.vim/bundle/vim-airline
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Delete dir ~/.vim/bundle/vim-toml before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/vim-toml
+      state: absent
+
+  - name: Install vim-toml
+    tags:
+      - vim
+    become: no
+    git:
+      repo: 'https://github.com/cespare/vim-toml.git'
+      dest: ~/.vim/bundle/toml
+      clone: yes
+      force: yes
+      update: no
+
+  - name: Delete dir ~/.vim/bundle/ale before installing
+    tags:
+      - vim
+    become: no
+    file:
+      path: ~/.vim/bundle/ale
+      state: absent
+
+  - name: Install `awscli`
+    tags:
+      - python
+    become: no
+    pip:
+      name: awscli
+      executable: pip3
+
+  - name: Ensure a locale exists
+    become: yes
+    tags:
+      - locale
+    locale_gen:
+      name: en_GB.UTF-8
+      state: present
+
+  - name: Configure locale
+    become: yes
+    tags:
+      - locale
+    shell: |
+      update-locale LANG=en_GB.UTF-8
+      update-locale LANGUAGE=en_GB.UTF-8
+      update-locale LC_CTYPE=en_GB.UTF-8
+      update-locale LC_NUMERIC=en_GB.UTF-8
+      update-locale LC_TIME=en_GB.UTF-8
+      update-locale LC_COLLATE=en_GB.UTF-8
+      update-locale LC_MONETARY=en_GB.UTF-8
+      update-locale LC_MESSAGES=en_GB.UTF-8
+      update-locale LC_PAPER=en_GB.UTF-8
+      update-locale LC_NAME=en_GB.UTF-8
+      update-locale LC_ADDRESS=en_GB.UTF-8
+      update-locale LC_TELEPHONE=en_GB.UTF-8
+      update-locale LC_MEASUREMENT=en_GB.UTF-8
+      update-locale LC_IDENTIFICATION=en_GB.UTF-8
+      update-locale LC_ALL=en_GB.UTF-8
+
