@@ -50,6 +50,7 @@
       - pwgen
       - direnv
       - python3-pip
+      - python3-gpg  # for dropbox
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
@@ -297,6 +298,15 @@
       - snap
     shell: snap install aws-cli --classic
 
+  - name: install bitwarden from snap
+    become: yes
+    tags:
+      - bitwarden
+      - snap
+    shell: |
+      snap install bitwarden
+      snap connect bitwarden:password-manager-service
+
   - name: Ensure a locale exists
     become: yes
     tags:
@@ -325,4 +335,11 @@
       update-locale LC_MEASUREMENT=en_GB.UTF-8
       update-locale LC_IDENTIFICATION=en_GB.UTF-8
       update-locale LC_ALL=en_GB.UTF-8
+
+  - name: Install Dropbox
+    become: yes
+    tags:
+      - dropbox
+    apt:
+      deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2024.04.17_amd64.deb
 
