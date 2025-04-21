@@ -49,6 +49,7 @@
       - shellcheck
       - pwgen
       - direnv
+      - python3-pip
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
@@ -289,13 +290,12 @@
       path: ~/.vim/bundle/ale
       state: absent
 
-  - name: Install `awscli`
+  - name: install awscli from snap
+    become: yes
     tags:
-      - python
-    become: no
-    pip:
-      name: awscli
-      executable: pip3
+      - aws
+      - snap
+    shell: snap install aws-cli --classic
 
   - name: Ensure a locale exists
     become: yes
