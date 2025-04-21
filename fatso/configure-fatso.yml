@@ -343,3 +343,11 @@
     apt:
       deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2024.04.17_amd64.deb
 
+  - name: Install glosm
+    tags:
+      - glosm
+    become: yes
+    pip:
+      name: glosm==0.6.2
+      executable: pip3
+      extra_args: --break-system-packages
