@@ -14,6 +14,22 @@
 
   tasks:
 
+  - name: Add Mullvad key
+    become: yes
+    tags:
+      - apt
+    apt_key:
+      url: https://repository.mullvad.net/deb/mullvad-keyring.asc
+      state: present
+
+  - name: Add APT repo of Mullvad
+    become: yes
+    tags:
+      - apt
+    apt_repository:
+      repo: deb https://repository.mullvad.net/deb/stable stable main
+      state: present
+
   - name: Upgrade APT packages
     become: yes
     tags:
@@ -51,6 +67,7 @@
       - direnv
       - python3-pip
       - python3-gpg  # for dropbox
+      - mullvad-vpn
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
