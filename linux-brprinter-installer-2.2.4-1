@@ -1,49 +1,43 @@
 #! /bin/bash
 #
-# This script installs the printer and scanner drivers for the
-# printer Brother MFC-L9570CDW.
-#
-# Run this script with:
-# `sudo bash linux-brprinter-installer-2.2.1-1 MFC-L9570CDW`
-#
-# Copyright(c) 2011-2018 Brother Industries, Ltd.
+# Copyright(c) 2011- Brother Industries, Ltd.  
 #    All Rights Reserved.
 #
-#Brother retains any and all copyrights to the Software.
-#In no case this Agreement shall be construed to assign
-#or otherwise transfer from Brother to User any copyrights
-#or other intellectual property rights to whole or any part
+#Brother retains any and all copyrights to the Software. 
+#In no case this Agreement shall be construed to assign 
+#or otherwise transfer from Brother to User any copyrights 
+#or other intellectual property rights to whole or any part 
 #of the Software.
 #
-#Brother grants User a non-exclusive license: to reproduce
-#and/or distribute (via Internet or in any other manner) the
-#Software. Further, Brother grants User a non-exclusive
-#license to modify, alter, translate or otherwise prepare
-#derivative works of the Software and to reproduce and
-#distribute (via Internet or in any other manner) such
-#modification, alteration, translation or other derivative
+#Brother grants User a non-exclusive license: to reproduce 
+#and/or distribute (via Internet or in any other manner) the 
+#Software. Further, Brother grants User a non-exclusive 
+#license to modify, alter, translate or otherwise prepare 
+#derivative works of the Software and to reproduce and 
+#distribute (via Internet or in any other manner) such 
+#modification, alteration, translation or other derivative 
 #works for any purpose.
 #
-#The license of the Software from Brother hereunder is
+#The license of the Software from Brother hereunder is 
 #granted "AS IS." BROTHER HEREBY DISCLAIMS ANY WARRANTIES WITH
-# RESPECT TO THE SOFTWARE, EXPRESS OR IMPLIED, INCLUDING
-#BUT NOT LIMITED TO WARRANTY FOR THE QUALITY, MERCHANTABILITY,
+# RESPECT TO THE SOFTWARE, EXPRESS OR IMPLIED, INCLUDING 
+#BUT NOT LIMITED TO WARRANTY FOR THE QUALITY, MERCHANTABILITY, 
 #FITNESS FOR PARTICULAR PURPOSE OR NON-INFRINGEMENT.
-#Brother shall have no liability in contract, tort (including
-#negligence or breach of statutory duty) or otherwise for any
-#interruption of use, loss of data, or for any indirect,
-#incidental, punitive or consequential loss or damage, or for
-#any loss of profit, revenue, data, goodwill or anticipated
-#savings that arises under, out of, or in contemplation of
-#this Agreement or otherwise arises due to any error, inaccuracy
-#or defect in the Software even if Brother has been advised of
+#Brother shall have no liability in contract, tort (including 
+#negligence or breach of statutory duty) or otherwise for any 
+#interruption of use, loss of data, or for any indirect, 
+#incidental, punitive or consequential loss or damage, or for 
+#any loss of profit, revenue, data, goodwill or anticipated 
+#savings that arises under, out of, or in contemplation of 
+#this Agreement or otherwise arises due to any error, inaccuracy 
+#or defect in the Software even if Brother has been advised of 
 #the possibility of such loss or damage.
-#Further, Brother shall have no liability to disclose and/or
-#distribute the source cord of the Software to User under any
-#circumstances. In no case shall the above license by Brother
-#to modify, alter, translate or otherwise prepare derivative
-#works of the Software be construed as Brother's implied
-#agreement or undertakings to disclose and/or distribute the
+#Further, Brother shall have no liability to disclose and/or 
+#distribute the source cord of the Software to User under any 
+#circumstances. In no case shall the above license by Brother 
+#to modify, alter, translate or otherwise prepare derivative 
+#works of the Software be construed as Brother's implied 
+#agreement or undertakings to disclose and/or distribute the 
 #source cord of the Software.
 
 
@@ -67,8 +61,8 @@ if [ "$(echo $0 | grep  linux-brjprinter-installer)" = '' ];then
   MESSAGE060="CUPS is not installed."
   MESSAGE070="Do you want to specify a PROXY server? [y/N] ->"
   MESSAGE080="Enter the URL of the PROXY server."
-  MESSAGE090="   ex http://(proxy-server-url):(port)"
-  MESSAGE100="   ex http://(login-name):(password)@(proxy-server-url):(port)"
+  MESSAGE090="   ex https://(proxy-server-url):(port)"
+  MESSAGE100="   ex https://(login-name):(password)@(proxy-server-url):(port)"
   MESSAGE110="     ->"
   MESSAGE120="Unable to get the server information."\
 "  Please check the network settings."
@@ -81,9 +75,6 @@ if [ "$(echo $0 | grep  linux-brjprinter-installer)" = '' ];then
   MESSAGE165="OK? [Y/n]  ->"
   MESSAGE170="Do you agree? [Y/n] ->"
   MESSAGE180="Do you agree? [Y/n] ->"
-  MESSAGE182="The security level of SELinux has been temporarily lowered "\
-"to enable the test print."\
-"  To set it permanently, modify the SELinux configuration file."
   MESSAGE184="The security level of AppArmor has been lowered."\
 "  (aa-complain cups)"
   MESSAGE190="Will you specify the Device URI? [Y/n] ->"
@@ -94,9 +85,6 @@ if [ "$(echo $0 | grep  linux-brjprinter-installer)" = '' ];then
   MESSAGE230="Test Print? [y/N] ->"
   MESSAGE240="Hit Enter/Return key."
   MESSAGE250="csh/tcsh is required"
-  MESSAGE260="The security level of SELinux has been lowered."\
-" (semanage permissive -a cupsd_t)"
-  MESSAGE270="glibc.i686/libstdc++ is requored."\
   MESSAGE280="wget is required."
 else
   MESSAGE010="使用方法:  "
@@ -108,8 +96,8 @@ else
   MESSAGE060="CUPSがインストールされていません。"
   MESSAGE070="WEBより情報を取得できません。PROXYサーバーを指定しますか? [y/N] ->"
   MESSAGE080="PROXYサーバーのURLを入力してください。"
-  MESSAGE090="   例1 http://(proxy-server-url):(port)"
-  MESSAGE100="   例2 http://(login-name):(pass-word)@(proxy-server-url):(port)"
+  MESSAGE090="   例1 https://(proxy-server-url):(port)"
+  MESSAGE100="   例2 https://(login-name):(pass-word)@(proxy-server-url):(port)"
   MESSAGE110="     ->"
   MESSAGE120="インターネットに接続できません。ネットワーク設定を確認してください。"
   MESSAGE121="モデル名を入力してください。->"
@@ -121,7 +109,6 @@ else
   MESSAGE165="インストールしますか? [Y/n]  ->"
   MESSAGE170="上記使用許諾に同意しますか? [Y/n] ->"
   MESSAGE180="上記使用許諾に同意しますか? [Y/n] ->"
-  MESSAGE182="一時的にSELinuxのセキュリティレベルを下げました。恒久対策としてCUPSのセキュリティレベルをpermissiveにしてください。"
   MESSAGE184="AppArmorのCUPSに対するセキュリティレベルを下げました (aa-complain cups)。"
   MESSAGE190="Device URIを指定しますか? [Y/n] ->"
   MESSAGE200="IPアドレスの指定"
@@ -131,9 +118,6 @@ else
   MESSAGE230="テスト印刷を実行しますか? [y/N] ->"
   MESSAGE240="Enterキーを押してください。"
   MESSAGE250="csh/tcsh が必要です。"
-  MESSAGE260="SELinuxのCUPSに対するセキュリティレベルを下げました。"\
-" (semanage permissive -a cupsd_t)"
-  MESSAGE270="32bitライブラリ（glibc.i686/libstdc++）が必要です 。"\
   MESSAGE280="'wget'が必要です。"
 fi
 
@@ -165,12 +149,12 @@ else
 
 本契約は、本契約とともに配布・提供されるソフトウェア （以下単に本ソフトウェアといいます） に関し、本ソフトウェアの著作権者であるブラザー工業株式会社 （以下、ブラザーといいます） から本ソフトウェア受領者 （以下単に利用者といいます） に対し与えられる使用許諾について定めるものです。 利用者は、下記条項に従い本ソフトウェアを利用するものとします。 また、利用者は本ソフトウェアを利用することにより、下記条項に同意したものと見なされます。
 
-（１）本ソフトウェアに関する著作権は、ブラザーに帰属します。 本契約は、本ソフトウェアについてブラザーから利用者に対し著作権の全部若しくは一部を譲渡するものとは解され得ません。
-（２）ブラザーは利用者に対し、本ソフトウェアについて複製、譲渡 （著作権の譲渡ではなくソフトウェアが格納された媒体の譲渡を指します） および公衆送信を行う権利を無償にて非独占的に許諾します。
-（３）さらにブラザーは利用者に対し、いかなる目的のためにでも本ソフトウェアを変更、改変、翻訳あるいは本ソフトウェアの派生物を作成し、かつそれらについて複製、譲渡及び公衆送信を行う権利を無償にて非独占的に許諾します。
-（４）ブラザーによる本ソフトウェアの配布・提供は、現状有姿にて行われるものであり、ブラザーは利用者に対し、本ソフトウェアに関し、明示・黙示問わず、何らの保証 （品質保証・有用性に関する保証・特定目的への合致に関する保証その他一切含め） も行いません。
-（５）ブラザーは本ソフトウェアに関し、利用者に生じたいかなる損害 （直接損害・間接損害・特別損害・派生損害・懲罰的損害その他一切含め） についても、かかる損害が予測可能か否か、また、その可能性についてブラザーが知っていたか否かを問わず、賠償義務を負いません。
-（６）さらにブラザーは利用者に対し、いかなる場合も本ソフトウェアのソースコードを開示する義務を負いません。 上記ブラザーによる変更、改変、翻訳あるいは本ソフトウェアの派生物作成に関するライセンスは、いかなる場合にも、本ソフトウェアのソースコード開示に関するブラザーの黙示的な同意とは解釈されません。
+（１）本ソフトウェアに関する著作権は、ブラザーに帰属します。 本契約は、本ソフトウェアについてブラザーから利用者に対し著作権の全部若しくは一部を譲渡するものとは解され得ません。 
+（２）ブラザーは利用者に対し、本ソフトウェアについて複製、譲渡 （著作権の譲渡ではなくソフトウェアが格納された媒体の譲渡を指します） および公衆送信を行う権利を無償にて非独占的に許諾します。 
+（３）さらにブラザーは利用者に対し、いかなる目的のためにでも本ソフトウェアを変更、改変、翻訳あるいは本ソフトウェアの派生物を作成し、かつそれらについて複製、譲渡及び公衆送信を行う権利を無償にて非独占的に許諾します。 
+（４）ブラザーによる本ソフトウェアの配布・提供は、現状有姿にて行われるものであり、ブラザーは利用者に対し、本ソフトウェアに関し、明示・黙示問わず、何らの保証 （品質保証・有用性に関する保証・特定目的への合致に関する保証その他一切含め） も行いません。 
+（５）ブラザーは本ソフトウェアに関し、利用者に生じたいかなる損害 （直接損害・間接損害・特別損害・派生損害・懲罰的損害その他一切含め） についても、かかる損害が予測可能か否か、また、その可能性についてブラザーが知っていたか否かを問わず、賠償義務を負いません。 
+（６）さらにブラザーは利用者に対し、いかなる場合も本ソフトウェアのソースコードを開示する義務を負いません。 上記ブラザーによる変更、改変、翻訳あるいは本ソフトウェアの派生物作成に関するライセンスは、いかなる場合にも、本ソフトウェアのソースコード開示に関するブラザーの黙示的な同意とは解釈されません。 
 
 =========================================
 BROTHERLICENSEJ
@@ -234,7 +218,7 @@ is covered only if its contents constitute a work based on the Program (independ
 
       c) If the modified program normally reads commands interactively when run, you must cause it, when started running for such interactive use in the most ordinary way, to print or display an
       announcement including an appropriate copyright notice and a notice that there is no warranty (or else, saying that you provide a warranty) and that users may redistribute the program under these conditions, and telling the user how to view a copy of this License. (Exception: if the Program itself is interactive but does not normally print such an announcement, your work based on the Program is not required to print an announcement.)
-
+      
       These requirements apply to the modified work as a whole. If identifiable sections of that work are not derived from the Program, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works. But when you distribute the same sections as part of a whole which is a work based on the Program, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it.
 
       Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Program.
@@ -329,47 +313,47 @@ gpl_and_br_license(){
 本契約は、本契約とともに配布・提供されるソフトウェア（以下単に本ソフトウェアといいます）に関し、ブラザー工業株式会社（以下、ブラザーといいます）から本ソフトウェア受領者（以下、お客様といいます）に対し与えられる使用許諾について定めるものです。
 
 1.本ソフトウェアは、以下のモジュールから構成されています。
-(1) GNU GENERAL PUBLIC LICENSE対象ソフトウェアモジュール（以下、GPL対象モジュールといいます）
-(2) 上記に該当しないソフトウェアモジュール（以下、非GPLモジュールといいます。
+(1) GNU GENERAL PUBLIC LICENSE対象ソフトウェアモジュール（以下、GPL対象モジュールといいます） 
+(2) 上記に該当しないソフトウェアモジュール（以下、非GPLモジュールといいます。 
 本ソフトウェアを構成する各モジュールが上記のいずれに該当するかについては、本ソフトウェアのソースファイルをダウンロード頂きご確認ください。
 
 
-2.GPL対象モジュールについては、GNU GENERAL PUBLIC LICENSE Version 2, June 1991（以下GPLv2といいます）の条件が適用されます。その条件の詳細については、 http://www.brother.co.jp/jp/agreement/japanese_gpl/agree.html をご確認ください。GPL対象モジュールについては、お客様は、GPLv2に定める条件に従い利用するものとします。また、お客様はGPL対象モジュールを利用することにより、GPLv2に定める条件に同意したものと見なされます。
+2.GPL対象モジュールについては、GNU GENERAL PUBLIC LICENSE Version 2, June 1991（以下GPLv2といいます）の条件が適用されます。その条件の詳細については、 https://support.brother.co.jp/j/s/support/agreement/agree_gpl.html をご確認ください。GPL対象モジュールについては、お客様は、GPLv2に定める条件に従い利用するものとします。また、お客様はGPL対象モジュールを利用することにより、GPLv2に定める条件に同意したものと見なされます。
 
 
 3.非GPLモジュールについては、下記の条件が適用されます。非GPLモジュールについては、お客様は、下記の条件に従い利用するものとします。また、お客様は非GPLモジュールを利用することにより、下記条件に同意したものと見なされます。
-(1) 非GPLモジュールに関する著作権は、ブラザーに帰属します。本契約は、非GPLモジュールについてブラザーからお客様に対し著作権の全部若しくは一部を譲渡するものとは解され得ません。
-(2) ブラザーはお客様に対し、非GPLモジュールについて複製、譲渡（著作権の譲渡ではなくソフトウェアが格納された媒体の譲渡を指します）、公衆送信、および、改変並びに翻案（改変若しくは翻案された非GPLモジュールの複製、譲渡及び公衆送信を含みます）を行う権利を、無償にて非独占的に許諾します。
-(3) お客様は、前号に基づく譲渡及び公衆送信に際し、本契約に定めると同一内容の再使用許諾を受領者に明示的に与えなければなりません。
-(4) ブラザーによる非GPLモジュールの配布・提供は、現状有姿にて行われるものであり、ブラザーはお客様に対し、非GPLモジュールに関し、明示・黙示問わず、何らの保証（品質保証・有用性に関する保証・特定目的への合致に関する保証その他一切含め）も行いません。
-(5) ブラザーは非GPLモジュールに関し、適用法で認められる限り、お客様に生じたいかなる損害（直接損害・間接損害・特別損害・派生損害・懲罰的損害その他一切含め）についても、かかる損害が予測可能か否か、また、その可能性についてブラザーが知っていたか否かを問わず、賠償義務を負いません。
-(6) さらにブラザーはお客様に対し、いかなる場合も非GPLモジュールのソースコードを開示する義務を負いません。上記ブラザーによる改変、翻案に関するライセンスは、いかなる場合にも、非GPLモジュールのソースコード開示に関するブラザーの黙示的な同意とは解釈されません。
+(1) 非GPLモジュールに関する著作権は、ブラザーに帰属します。本契約は、非GPLモジュールについてブラザーからお客様に対し著作権の全部若しくは一部を譲渡するものとは解され得ません。 
+(2) ブラザーはお客様に対し、非GPLモジュールについて複製、譲渡（著作権の譲渡ではなくソフトウェアが格納された媒体の譲渡を指します）、公衆送信、および、改変並びに翻案（改変若しくは翻案された非GPLモジュールの複製、譲渡及び公衆送信を含みます）を行う権利を、無償にて非独占的に許諾します。 
+(3) お客様は、前号に基づく譲渡及び公衆送信に際し、本契約に定めると同一内容の再使用許諾を受領者に明示的に与えなければなりません。 
+(4) ブラザーによる非GPLモジュールの配布・提供は、現状有姿にて行われるものであり、ブラザーはお客様に対し、非GPLモジュールに関し、明示・黙示問わず、何らの保証（品質保証・有用性に関する保証・特定目的への合致に関する保証その他一切含め）も行いません。 
+(5) ブラザーは非GPLモジュールに関し、適用法で認められる限り、お客様に生じたいかなる損害（直接損害・間接損害・特別損害・派生損害・懲罰的損害その他一切含め）についても、かかる損害が予測可能か否か、また、その可能性についてブラザーが知っていたか否かを問わず、賠償義務を負いません。 
+(6) さらにブラザーはお客様に対し、いかなる場合も非GPLモジュールのソースコードを開示する義務を負いません。上記ブラザーによる改変、翻案に関するライセンスは、いかなる場合にも、非GPLモジュールのソースコード開示に関するブラザーの黙示的な同意とは解釈されません。 
 
 GPLBROTHERLICENSE_J
-    else
+    else 
 	cat <<GPLBROTHERLICENSE_U
 This Agreement provides terms and conditions for license grant for use of the software that is distributed with this Agreement ("Software") from Brother Industries, Ltd. ("Brother") to recipients thereof ("You").
 
 Note:
-Please click on "I Accept" while holding down "Shift" or right click on "I Accept" and select "Save Target As,,," from the menu.
+Please click on "I Accept" while holding down "Shift" or right click on "I Accept" and select "Save Target As,,," from the menu. 
 
 1.The Software is comprised of the following software modules:
 
-(1) Certain software modules that is the subject of GNU GENERAL PUBLIC LICENSE ("GPL Modules"), and
-(2) Other software modules ("Non-GPL Modules")
+(1) Certain software modules that is the subject of GNU GENERAL PUBLIC LICENSE ("GPL Modules"), and 
+(2) Other software modules ("Non-GPL Modules") 
 
 You may distinguish each of GPL Modules by downloading source files of the Software as Brother separately makes available and reading such files.
 
-2.Your use of all GPL Modules shall be subject to the terms and conditions of GNU GENERAL PUBLIC LICENSE Version 2, June 1991 ("GPLv2"). Please see http://www.brother.com/agreement/English_gpl/agree.html. You shall use GPL Modules in accordance with the terms and conditions of GPLv2. Your use of GPL Modules shall be deemed as your agreement to the terms and conditions of GPLv2.
+2.Your use of all GPL Modules shall be subject to the terms and conditions of GNU GENERAL PUBLIC LICENSE Version 2, June 1991 ("GPLv2"). Please see https://support.brother.com/g/s/agreement/English_gpl/agree.html. You shall use GPL Modules in accordance with the terms and conditions of GPLv2. Your use of GPL Modules shall be deemed as your agreement to the terms and conditions of GPLv2.
 
-3.You have the right to use all Non-GPL Modules only in accordance with the following terms and conditions. Your use of Non-GPL Modules shall be deemed as your agreement to the following terms and conditions:
+3.You have the right to use all Non-GPL Modules only in accordance with the following terms and conditions. Your use of Non-GPL Modules shall be deemed as your agreement to the following terms and conditions: 
 (1) Brother retains any and all copyrights to Non-GPL Modules. In no case this Agreement shall be construed to assign or otherwise transfer from Brother to you any copyrights or other intellectual property rights to whole or any part of Non-GPL Modules.
 
 (2) Brother grants you a non-exclusive license to reproduce and/or distribute (via Internet or in any other manner) Non-GPL Modules. Brother further grants you a non-exclusive license to modify, alter, translate or otherwise prepare derivative works of Non-GPL Modules and to reproduce and/or distribute (via Internet or in any other manner) such modification, alteration, translation or other derivative works of Non-GPL Modules.
 
 (3) When you distribute (via Internet or in any other manner) Non-GPL Modules or any modification, alteration, translation or other derivative works thereof under the license granted in accordance with subparagraph 3(2) above, you must expressly grant any and all recipient thereof the license equivalent to this Agreement which applies to Non-GPL Modules.
 
-(4) The license of Non-GPL Modules from Brother hereunder is granted "AS IS. BROTHER HEREBY DISCLAIMS ANY WARRANTIES WITH RESPECT TO NON-GPL MODULES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTY FOR THE QUALITY, MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE OR NON-INFRINGEMENT.
+(4) The license of Non-GPL Modules from Brother hereunder is granted "AS IS. BROTHER HEREBY DISCLAIMS ANY WARRANTIES WITH RESPECT TO NON-GPL MODULES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTY FOR THE QUALITY, MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE OR NON-INFRINGEMENT. 
 
 (5) To the extent allowed by applicable laws, Brother shall have no liability in contract, tort (including negligence or breach of statutory duty) or otherwise for any interruption of use, loss of data, or for any indirect, incidental, punitive or consequential loss or damage, or for any loss of profit, revenue, data, goodwill or anticipated savings that arises under, out of, or in contemplation of this Agreement or otherwise arises due to any error, inaccuracy or defect in Non-GPL Modules even if Brother has been advised of the possibility of such loss or damage.
 
@@ -395,7 +379,7 @@ pdrv_complex_license(){
 
 GNU GENERAL PUBLIC LICENSE
 Version 2, June 1991
-Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+Copyright (C) 1989, 1991 Free Software Foundation, Inc.  
 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 Everyone is permitted to copy and distribute verbatim copies
@@ -477,7 +461,7 @@ If the program is interactive, make it output a short notice like this when it s
 Gnomovision version 69, Copyright (C) year name of author
 Gnomovision comes with ABSOLUTELY NO WARRANTY; for details
 type \`show w'.  This is free software, and you are welcome
-to redistribute it under certain conditions; type \`show c'
+to redistribute it under certain conditions; type \`show c' 
 for details.
 The hypothetical commands \`show w' and \`show c' should show the appropriate parts of the General Public License. Of course, the commands you use may be called something other than \`show w' and \`show c'; they could even be mouse-clicks or menu items--whatever suits your program.
 You should also get your employer (if you work as a programmer) or your school, if any, to sign a "copyright disclaimer" for the program, if necessary. Here is a sample; alter the names:
@@ -488,7 +472,7 @@ Ty Coon, President of Vice
 This General Public License does not permit incorporating your program into proprietary programs. If your program is a subroutine library, you may consider it more useful to permit linking proprietary applications with the library. If this is what you want to do, use the GNU Lesser General Public License instead of this License.
 
 PDVRLICENSE_J
-    else
+    else 
 	cat <<PDVRLICENSE_U
 License Agreement
 
@@ -504,7 +488,7 @@ The Software contains the programs licensed under the terms and conditions of GN
 <cupswrapper>
 GNU GENERAL PUBLIC LICENSE
 Version 2, June 1991
-Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+Copyright (C) 1989, 1991 Free Software Foundation, Inc.  
 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 Everyone is permitted to copy and distribute verbatim copies
@@ -586,7 +570,7 @@ If the program is interactive, make it output a short notice like this when it s
 Gnomovision version 69, Copyright (C) year name of author
 Gnomovision comes with ABSOLUTELY NO WARRANTY; for details
 type \`show w'.  This is free software, and you are welcome
-to redistribute it under certain conditions; type \`show c'
+to redistribute it under certain conditions; type \`show c' 
 for details.
 The hypothetical commands \`show w' and \`show c' should show the appropriate parts of the General Public License. Of course, the commands you use may be called something other than \`show w' and \`show c'; they could even be mouse-clicks or menu items--whatever suits your program.
 You should also get your employer (if you work as a programmer) or your school, if any, to sign a "copyright disclaimer" for the program, if necessary. Here is a sample; alter the names:
@@ -599,7 +583,7 @@ This General Public License does not permit incorporating your program into prop
 
 PDVRLICENSE_U
     fi
-
+    
 }
 
 
@@ -607,8 +591,8 @@ PDVRLICENSE_U
 TIMEOUT=30
 
 
-WGET_OP="-T 10 -nd"
-WGET_OP2="-nd -T 10 -t 1"
+WGET_OP="-T 10 -nd "
+WGET_OP2="-nd -T 10 -t 1 "
 
 DBG_MSG(){
   if [ "$DEBUG_MSG" = 1 ];then
@@ -636,17 +620,17 @@ pre_install_sweep(){
   SYMLNC="cups -> /etc/init.d/cupsys"
   SYMLNL="lpd -> /etc/init.d/cupsys"
   SYMLNLN="lprng -> /etc/init.d/cupsys"
-
-  if [ "$(ls -al $ORGC  2> /dev/null | grep ^l | grep "$SYMLNC" )" != '' ]
-  then
+  
+  if [ "$(ls -al $ORGC  2> /dev/null | grep ^l | grep "$SYMLNC" )" != '' ] 
+  then 
     rm -f $ORGC   2> /dev/null
   fi
   if [ "$(ls -al $ORGL  2> /dev/null | grep ^l | grep "$SYMLNL" )" != '' ]
-  then
+  then 
     rm -f $ORGL   2> /dev/null
   fi
   if [ "$(ls -al $ORGLN  2> /dev/null | grep ^l | grep "$SYMLNLN")" != '' ]
-  then
+  then 
     rm -f $ORGLN   2> /dev/null
   fi
 }
@@ -668,7 +652,10 @@ post_install_sweep(){
 #      ${fulpath}
 #
 get_inf_file(){
-  SUFFIX1="N C D DN DW DWN DWT CN CW CDN CD CDW CDWT DNLT JN J CLN CLWN WR"
+  SUFFIX1="BD BDN BDW BW C CD CDN CDW CDWT CLN CLWN CN CW D DN DNLT \
+           DW DWN DWT DWXL E EX EXDW J JCDW JD JDN JDW JN JW LCDN LCDW \
+           LCW LD LDN LDW LDWE LDWXL LW N NB NW T TDW TW W We WR"
+
   DBG_MSG get_inf_file
 
   if [ $NODOWNLOAD = 1 ];then
@@ -679,11 +666,12 @@ get_inf_file(){
   else
 
     inputmodel=$1
-    modelnhuc=$(echo $inputmodel | tr "[a-z]" "[A-Z]" | tr -d '-')
+    modelnhuc=$(echo $inputmodel | tr "[:lower:]" "[:upper:]" | tr -d '-')
 
     if [ "${modelnhuc}" = '' ];then
       echo ERROR :$inputmodel , $1   ,  ${modelnhuc}
       #DBG_MSG  "exit 1"
+      rmdir "${wkdir}"
       exit 0
     fi
 
@@ -694,18 +682,15 @@ get_inf_file(){
       MESSAGE  "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
     fi
   fi
-  wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath    > /dev/null 2> /dev/null
+  wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath    > /dev/null 2> /dev/null 
 
-  #--------------------------------------
-
+  #--------------------------------------   
+  
   if [ ! -f ${wkdir}/${modelnhuc} ];then
      #     DCP315C -> DCP315CN
      dlresult=APPROX1
-     modelnhuc2=$(echo $inputmodel | tr "[a-z]" "[A-Z]" | tr -d '-' |\
-		sed -e s/"[A-Z][A-Z][A-Z][A-Z]$"/""/g         \
-		    -e s/"[A-Z][A-Z][A-Z]$"/""/g              \
-		    -e s/"[A-Z][A-Z]$"/""/g                   \
-                    -e s/"[A-Z]$"/""/g )
+     modelnhuc2=$(echo $inputmodel | tr "[:lower:]" "[:upper:]" | tr -d '-' |\
+		sed -r -e s/"[A-Z]{1,5}$"/""/g)
 
      for suffix in $SUFFIX1
      do
@@ -713,67 +698,66 @@ get_inf_file(){
 
        if [ "${modelnhuc}" != '' ];then
          fulpath=$URL_INF/${modelnhuc}
-         if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
+         if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then 
 	   MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
 	 fi
-	 wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null
-         if [ $? = '0' ];then
+	 wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null 
+         if [ $? = '0' ];then 
            break
          fi
-       fi
+       fi  
        modelnhuc='___not_found___'
      done
   fi
 
-  #--------------------------------------
+  #--------------------------------------   
   if [ ! -f ${wkdir}/${modelnhuc} ];then
     #  DCP315C  -> DCP315
     dlresult=APPROX2
-    modelnhuc=$(echo $inputmodel | tr "[a-z]" "[A-Z]" | tr -d '-' |\
-		sed -e s/"[A-Z][A-Z][A-Z][A-Z]$"/""/g         \
-		    -e s/"[A-Z][A-Z][A-Z]$"/""/g              \
-		    -e s/"[A-Z][A-Z]$"/""/g                   \
-                    -e s/"[A-Z]$"/""/g )
+    modelnhuc=$(echo $inputmodel | tr "[:lower:]" "[:upper:]" | tr -d '-' |\
+		sed -r -e s/"[A-Z]{1,5}$"/""/g)
 
-
+		    
     if [ "${modelnhuc}" != '' ];then
       fulpath=$URL_INF/${modelnhuc}
       if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
 	MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
       fi
-      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath     > /dev/null 2> /dev/null
+      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath     > /dev/null 2> /dev/null 
     fi
   fi
 
-  #--------------------------------------
+  #--------------------------------------   
   if [ ! -f "${wkdir}/${modelnhuc}" ];then
-    #    DCP315C   -> DCP310C
+    #    DCP315C   -> DCP310C   
     dlresult=APPROX3
     modelnhuc=$(echo $inputmodel | \
 		sed -e s/"[0-9]$"/"0"/g  \
 		    -e s/"[0-9]C"/"0C"/g \
 		    -e s/"[0-9]D"/"0D"/g \
 		    -e s/"[0-9]W"/"0W"/g \
+		    -e s/"[0-9]B"/"0B"/g \
+		    -e s/"[0-9]E"/"0E"/g \
+		    -e s/"[0-9]J"/"0J"/g \
+		    -e s/"[0-9]K"/"0L"/g \
+		    -e s/"[0-9]T"/"0T"/g \
 		    -e s/"[0-9]N"/"0N"/g )
     if [ "${modelnhuc}" != '' ];then
       fulpath=$URL_INF/${modelnhuc}
       #echo wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath
-      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
+      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then 
         MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
       fi
-      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath     > /dev/null 2> /dev/null
+      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath     > /dev/null 2> /dev/null 
     fi
   fi
-  #--------------------------------------
+  #--------------------------------------   
 
   if [ ! -f ${wkdir}/${modelnhuc} ];then
     #    DCP315C   -> DCP310CN
     dlresult=APPROX4
-    modelnhuc2=$(echo $inputmodel | tr "[a-z]" "[A-Z]" | tr -d '-' |\
-		sed -e s/"[A-Z][A-Z][A-Z][A-Z]$"/""/g         \
-		    -e s/"[A-Z][A-Z][A-Z]$"/""/g              \
-		    -e s/"[A-Z][A-Z]$"/""/g                   \
-                    -e s/"[A-Z]$"/""/g                       |\
+    modelnhuc2=$(echo $inputmodel | tr "[:lower:]" "[:upper:]" | tr -d '-' |\
+		sed -r -e s/"[A-Z]{1,5}$"/""/g                        |\
                 sed s/"[0-9]$"/"0"/g )
 
     for suffix in $SUFFIX1
@@ -781,36 +765,33 @@ get_inf_file(){
        modelnhuc=${modelnhuc2}${suffix}
        if [ "${modelnhuc}" != '' ];then
          fulpath=$URL_INF/${modelnhuc}
-         if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
+         if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then 
 	   MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
 	 fi
-	 wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null
-         if [ $? = '0' ];then
+	 wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null 
+         if [ $? = '0' ];then 
            break
          fi
-       fi
+       fi  
        modelnhuc='___not_found___'
-    done
+    done 
   fi
 
-  #--------------------------------------
+  #--------------------------------------   
 
   if [ ! -f ${wkdir}/${modelnhuc} ];then
     #    DCP315C   -> DCP310
     dlresult=APPROX5
-    modelnhuc=$(echo $inputmodel | tr "[a-z]" "[A-Z]" | tr -d '-' |\
-		sed -e s/"[A-Z][A-Z][A-Z][A-Z]$"/""/g         \
-		    -e s/"[A-Z][A-Z][A-Z]$"/""/g              \
-		    -e s/"[A-Z][A-Z]$"/""/g                   \
-                    -e s/"[A-Z]$"/""/g                       |\
+    modelnhuc=$(echo $inputmodel | tr "[:lower:]" "[:upper:]" | tr -d '-' |\
+		sed -r -e s/"[A-Z]{1,5}$"/""/g                       |\
                 sed s/"[0-9]$"/"0"/g )
 
     if [ "${modelnhuc}" != '' ];then
       fulpath=$URL_INF/${modelnhuc}
-      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
+      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then 
 	MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
       fi
-      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null
+      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null 
     fi
     if [ ! -f ${wkdir}/${modelnhuc} ];then
        modelnhuc='___not_found___'
@@ -818,16 +799,56 @@ get_inf_file(){
     fi
   fi
 
-  #--------------------------------------
+  #--------------------------------------   
 
+  if [ ! -f ${wkdir}/${modelnhuc} ];then
+    #    HL-2386DW   -> HL-2385DW
+    dlresult=APPROX4
+    modelnhuc2=$(echo $inputmodel | tr "[:lower:]" "[:upper:]" | tr -d '-' |\
+		sed -r -e s/"[A-Z]{1,5}$"/""/g                        |\
+                sed s/"[0-9]$"/"5"/g )
 
+    for suffix in $SUFFIX1
+    do
+       modelnhuc=${modelnhuc2}${suffix}
+       if [ "${modelnhuc}" != '' ];then
+         fulpath=$URL_INF/${modelnhuc}
+         if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then 
+	   MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
+	 fi
+	 wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null 
+         if [ $? = '0' ];then 
+           break
+         fi
+       fi  
+       modelnhuc='___not_found___'
+    done 
+  fi
+
+  #--------------------------------------   
+  if [ ! -f ${wkdir}/${modelnhuc} ];then
+      if [ "$(echo "$inputmodel" | grep -i -E  "mfc-?l69[57]0" )" != '' ];then
+	  modelnhuc=MFCL6900DW
+      fi
+      if [ "${modelnhuc}" != '' ];then
+	  fulpath=$URL_INF/${modelnhuc}
+	  if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then 
+	      MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
+	  fi
+	  wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath > /dev/null 2> /dev/null 
+      fi
+      if [ ! -f ${wkdir}/${modelnhuc} ];then
+	  modelnhuc='___not_found___'
+      fi
+  fi
+  #--------------------------------------   
 
 
   if [ -f ${wkdir}/${modelnhuc} ];then
 
     lnk=$(grep "LNK=" ${wkdir}/${modelnhuc} 2>/dev/null | sed s/'LNK='//g)
     if [ "$lnk" != '' ];then
-      PRODUCT_NAME=$(grep "^\[" ${wkdir}/${modelnhuc} 2>/dev/null | sed -e s/"\["//g -e s/"\]"//g)
+      PRODUCT_NAME=$(grep "^\[" ${wkdir}/${modelnhuc} 2>/dev/null | sed -e s/"\["//g -e s/"\]"//g) 
 
       PREPROC=$(grep "PREPROC=" ${wkdir}/${modelnhuc} 2>/dev/null | \
                     sed s/"PREPROC="//g | \
@@ -836,18 +857,18 @@ get_inf_file(){
                     sed s/"POSTPROC="//g | \
                     sed -e s/^\"//g -e s/\"$//g )
       lnk_flag="LINK"
-      LNK_PRINTERNAME=$(grep "PRINTERNAME" ${wkdir}/${modelnhuc} \
-	  2>/dev/null | sed s/"PRINTERNAME="//g )
+      #LNK_PRINTERNAME=$(grep "PRINTERNAME" ${wkdir}/${modelnhuc} \
+      #	  2>/dev/null | sed s/"PRINTERNAME="//g )
       if [ -f ${wkdir}/${modelnhuc} ];then
          rm -f  ${wkdir}/${modelnhuc}   2> /dev/null
       fi
 
       modelnhuc=${lnk}
       fulpath=$URL_INF/${modelnhuc}
-      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
+      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then 
         MESSAGE "wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath"
       fi
-      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath  > /dev/null 2> /dev/null
+      wget $WGET_OP $CACHEFLG -P ${wkdir} $fulpath  > /dev/null 2> /dev/null 
     fi
   fi
 
@@ -863,7 +884,7 @@ get_packages_name(){
   DBG_MSG get_packages_name
   inf=${wkdir}/$1
   if [ "$PRODUCT_NAME" = '' ];then
-    PRODUCT_NAME=$(grep "\[" $inf 2>/dev/null | sed -e s/"\["//g -e s/"\]"//g)
+    PRODUCT_NAME=$(grep "\[" $inf 2>/dev/null | sed -e s/"\["//g -e s/"\]"//g) 
   fi
   SCANNER_DRV=$(grep "SCANNER_DRV" $inf 2>/dev/null | sed s/"SCANNER_DRV="//g )
   SCANKEY_DRV=$(grep "SCANKEY_DRV" $inf 2>/dev/null | sed s/"SCANKEY_DRV="//g )
@@ -871,10 +892,10 @@ get_packages_name(){
   if [ "$SCANNER_DRV" != '' ];then
      SCANNER_LNK="$SCANNER_DRV".lnk
      fulpath=$URL_INF/$SCANNER_LNK
-
+     
 
      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
-	echo wget  $WGET_OP $CACHEFLG -P ${wkdir} $fulpath
+	echo wget  $WGET_OP $CACHEFLG -P ${wkdir} $fulpath 
      fi
      wget  $WGET_OP $CACHEFLG -P ${wkdir} $fulpath 2> /dev/null
   fi
@@ -882,7 +903,7 @@ get_packages_name(){
      SCANKEY_LNK="$SCANKEY_DRV".lnk
      fulpath=$URL_INF/$SCANKEY_LNK
      if [ $infcheck = 0 ] && [ $HIDE_INF = NO ];then
-     	echo wget  $WGET_OP $CACHEFLG -P ${wkdir} $fulpath
+     	echo wget  $WGET_OP $CACHEFLG -P ${wkdir} $fulpath 
      fi
      wget  $WGET_OP $CACHEFLG -P ${wkdir} $fulpath  2> /dev/null
   fi
@@ -953,7 +974,7 @@ get_packages_name(){
   fi
 }
 
-HOSTDEFAULT="www.brother.com"
+HOSTDEFAULT="download.brother.com"
 HOSTINFJP=$HOSTDEFAULT
 HOSTINFUS=$HOSTDEFAULT
 HOSTPKGJP=$HOSTDEFAULT
@@ -981,8 +1002,8 @@ if [ "$BROTHERSOLUTIONSCENTOR_HOSTPKGUS" != '' ];then
 fi
 
 
-BASEPATHJP="/pub/bsc/linuxj/"
-BASEPATHUS="/pub/bsc/linux/"
+BASEPATHJP="/pub/com/linux/linuxj/"
+BASEPATHUS="/pub/com/linux/linux/"
 
 
 
@@ -990,11 +1011,11 @@ BASEPATHUS="/pub/bsc/linux/"
 set_host_info(){
   DBG_MSG set_host_info
   if [ "$1" = "JPN" ];then
-      URL_INF="http://"${HOSTINFJP}${BASEPATHJP}infs
-      URL_PKG="http://"${HOSTPKGJP}${BASEPATHJP}packages
+      URL_INF="https://"${HOSTINFJP}${BASEPATHJP}infs
+      URL_PKG="https://"${HOSTPKGJP}${BASEPATHJP}packages
   else
-      URL_INF="http://"${HOSTINFUS}${BASEPATHUS}infs
-      URL_PKG="http://"${HOSTPKGUS}${BASEPATHUS}packages
+      URL_INF="https://"${HOSTINFUS}${BASEPATHUS}infs
+      URL_PKG="https://"${HOSTPKGUS}${BASEPATHUS}packages
   fi
   DBG_MSG "  URL_INF="$URL_INF
   DBG_MSG "  URL_PKG="$URL_PKG
@@ -1009,9 +1030,9 @@ network_check(){
     fi
   fi
 
-  fulpath2="http://"${HOSTINFUS}${BASEPATHUS}infs/$netchkpage
-  wget $WGET_OP2 $CACHEFLG -P ${wkdir} $fulpath2    > /dev/null 2> /dev/null
-  rcwget=$?
+  fulpath2="https://"${HOSTINFUS}${BASEPATHUS}infs/$netchkpage
+  wget $WGET_OP2 $CACHEFLG -P ${wkdir} $fulpath2    > /dev/null 2> /dev/null 
+  #rcwget=$?
 
   netaccess=FALSE
   if [ -f ${wkdir}/$netchkpage ];then
@@ -1233,14 +1254,14 @@ cpscanlibmodules(){
 rmscanlibmodules(){
   for file in $dellist
   do
-    for check in $*
+    for check in "$@"
     do
       chkresult=$(echo $file | grep $check\$ )
       if [ "$chkresult" !=  '' ];then
-        echo rm  -f $file
+        echo rm  -f $file 
       fi
     done
-
+    
   done
 }
 
@@ -1436,7 +1457,7 @@ pre_proc(){
        echo "$PREPROC"   | /bin/bash
     fi
   fi
-  preproc_done=done
+  preproc_done="done"
 }
 
 post_proc(){
@@ -1446,7 +1467,7 @@ post_proc(){
          echo "$POSTPROC"   | /bin/bash
       fi
     fi
-    postproc_done=done
+    postproc_done="done"
   fi
 }
 
@@ -1460,7 +1481,7 @@ cleanup_deb_cups_pkg(){
       pkg2=$(echo $pkg | sed s/":.*$"//g)
       if [ "$(echo $CUPSFILE | grep $pkg2 )" != '' ];then
         $RMPKGCMD $pkg
-        break
+        break             
       fi
     done
   fi
@@ -1484,6 +1505,10 @@ else
   REGION=JPN
 fi
 
+if ! [[ "$PATH" =~ ^/usr/sbin$|^/usr/sbin:|:/usr/sbin$|:/usr/sbin: ]];then
+    export PATH=$PATH:/usr/sbin
+fi
+
 
 DBG_MSG MAIN
 dlresult=IDENTIC
@@ -1494,16 +1519,18 @@ if [ "$1" = '-h' ] || [ "$1" = '--help' ];then
    echo -e $COLOR"$MESSAGE012"$0"$MESSAGE030"$MONO    #"USAGE:  $0  -f model"
    echo -e $COLOR"$MESSAGE012"$0"$MESSAGE040"$MONO    #"USAGE:  $0  -l "
    #DBG_MSG  "exit 2"
+   rmdir "${wkdir}"
    exit 0
 fi
 
-if [ $(whoami) != 'root' ];then
+if [ "$(whoami)" != 'root' ];then
     echo -e  $COLOR$MESSAGE050$MONO       #"Only root can do this operation."
     #DBG_MSG  "exit 5"
+    rmdir "${wkdir}"
     exit 0
 fi
 
-if [ ! -f /etc/init.d/cups ] && [ ! -f /etc/init.d/cupsys ];then
+if [ ! -f /etc/init.d/cups ] && [ ! -f /etc/init.d/cupsys ];then 
  if [ "$(which lpadmin 2> /dev/null)" = '' ];then
   echo -e $COLOR$MESSAGE060$MONO                  #"CUPS is not installed."
   if [ "$1" = '' ];then
@@ -1511,6 +1538,7 @@ if [ ! -f /etc/init.d/cups ] && [ ! -f /etc/init.d/cupsys ];then
     read answer
   fi
   #DBG_MSG  "exit 6"
+  rmdir "${wkdir}"
   exit 0
  fi
 fi
@@ -1557,7 +1585,7 @@ fi
 
 
 
-if [ package_list = TEXT ];then
+if [ $package_list = TEXT ];then
   echo -e -n $MONO
 fi
 
@@ -1580,10 +1608,11 @@ if [ "$(which wget 2> /dev/null)" = '' ];then
   echo -e -n $COLOR$MESSAGE280             #"wget is required."
   echo -e $MONO
   #DBG_MSG  "exit 7"
+  rmdir "${wkdir}"
   exit 0
 fi
 
-post_install_sweep
+post_install_sweep 
 
 
 
@@ -1595,12 +1624,13 @@ elif [ "$(which rpm 2> /dev/null)" != '' ];then
    PKG=rpm
 else
    echo -e $COLOR$MESSAGE122$MONO     #"Rpm or dpkg is required."
-   post_install_sweep
+   post_install_sweep 
    if [ "$1" = '' ];then
      echo -e -n $COLOR$MESSAGE240$MONO    #"Hit Return/Enter Key"
      read answer
    fi
    #DBG_MSG  "exit 9"
+   rmdir "${wkdir}"
    exit 0
 fi
 
@@ -1624,13 +1654,13 @@ if [ "$PKG" = deb ];then
   PKGCMD='dpkg  -i --force-all'
   RMPKGCMD='dpkg  -P'
   LSPKGCMD='dpkg  --list'
-  EXT='\.deb'
+  #EXT='\.deb'
   PKG=deb
 elif [ "$PKG" = rpm ];then
-  PKGCMD='rpm  -ihv  --nodeps  --replacefiles --replacepkgs'
+  PKGCMD='rpm  -ihv  --nodeps  --replacefiles --replacepkgs  --ignorearch'
   RMPKGCMD='rpm -e'
   LSPKGCMD='rpm -qa'
-  EXT='\.rpm'
+  #EXT='\.rpm'
   PKG=rpm
 fi
 
@@ -1668,6 +1698,7 @@ else
   INFPATH="$(echo $MODEL_tmp | tr -d '[' | tr -d ']' )"
   if [ ! -f $INFPATH ];then
     echo -e $COLOR$MESSAGE130$MONO
+    rmdir "${wkdir}"
     exit 0
   fi
   MODEL=$(echo $MODEL_tmp | tr -d '[' | tr -d ']' | sed -e s/"^.*\/"//g)
@@ -1684,12 +1715,12 @@ SCANFILE=""
 SKEYFILE=""
 
 
-wkdir=/tmp/brprinter-installer
+wkdir=$(mktemp -d /tmp/brprinter-installer_XXXXXX)
 packdir=brother_driver_packdir
 basedir=$(pwd)
 
 modelnhuc=""
-mkdir -p $wkdir
+mkdir -p "$wkdir" 
 
 REGION2=$REGION
 
@@ -1712,10 +1743,11 @@ if [ -s "$(echo $1 | grep -e .${PKG})"   ]      && \
 
    if [ "$tmpcup" = '' ] || [ "$tmplpr" =  '' ];then
       echo -e $COLOR$MESSAGE130$MONO     #"Install packages does not be found."
+      rmdir "${wkdir}"
       exit 0
    fi
 
-   echo [UNKNOWN]            >  $wkdir/LOCAL
+   echo \[UNKNOWN\]          >  $wkdir/LOCAL
    echo PRN_CUP_RPM=$tmpcup  >> $wkdir/LOCAL
    echo PRN_CUP_DEB=$tmpcup  >> $wkdir/LOCAL
    echo PRN_LPD_RPM=$tmplpr  >> $wkdir/LOCAL
@@ -1746,8 +1778,8 @@ if [ $netaccess != SUCCESS ];then
     if [ "$answer" = Y ] || [ "$answer" = y ]; then
 
       #"enter PROXY server URL "
-      #"   ex http://\(proxy-server-url\):\(port\)"
-      #"   ex http://\(login-name\):\(pass-word\)@\(proxy-server-url\):\(port\)"
+      #"   ex https://\(proxy-server-url\):\(port\)"
+      #"   ex https://\(login-name\):\(pass-word\)@\(proxy-server-url\):\(port\)"
       #"     ->"
 
       echo -e $COLOR$MESSAGE080
@@ -1756,17 +1788,19 @@ if [ $netaccess != SUCCESS ];then
       echo -e -n $COLOR$MESSAGE110
       read proxy
       echo -e $MONO
-      export http_proxy=$proxy
+      export https_proxy=$proxy
       network_check  HL5470DW
       if [ $netaccess != SUCCESS ];then
          network_check  MFCJ6710CDW
       fi
       if [ $netaccess != SUCCESS ];then
-        echo -e $COLOR$MESSAGE120$MONO
+        echo -e $COLOR$MESSAGE120$MONO    
+	rmdir "${wkdir}"
         exit 0
       fi
     else
-      echo -e $COLOR$MESSAGE120$MONO
+      echo -e $COLOR$MESSAGE120$MONO    
+      rmdir "${wkdir}"
       exit 0
     fi
 fi
@@ -1799,6 +1833,7 @@ if [ $infcheck = 0 ];then
       echo -e $COLOR$MESSAGE130$MONO     #"Install packages does not be found."
       echo -e $COLOR$MESSAGE140$MONO     #" Confirm the model name."
       echo -e $MONO
+      rmdir "${wkdir}"
       exit 0
     fi
     echo -e -n $COLOR$MESSAGE070  #"Will you specify the PROXY server\? [y/N] ->"
@@ -1806,8 +1841,8 @@ if [ $infcheck = 0 ];then
     if [ "$answer" = Y ] || [ "$answer" = y ]; then
 
       #"enter PROXY server URL "
-      #"   ex http://\(proxy-server-url\):\(port\)"
-      #"   ex http://\(login-name\):\(pass-word\)@\(proxy-server-url\):\(port\)"
+      #"   ex https://\(proxy-server-url\):\(port\)"
+      #"   ex https://\(login-name\):\(pass-word\)@\(proxy-server-url\):\(port\)"
       #"     ->"
 
       echo -e $COLOR$MESSAGE080
@@ -1816,10 +1851,11 @@ if [ $infcheck = 0 ];then
       echo -e -n $COLOR$MESSAGE110
       read proxy
       echo -e $MONO
-      export http_proxy=$proxy
+      export https_proxy=$proxy
     else
       echo -e $MONO
       #DBG_MSG  "exit 10"
+      rmdir "${wkdir}"
       exit 0
     fi
     echo -e $MONO
@@ -1843,7 +1879,8 @@ fi
 if [ ! -f ${wkdir}/${modelnhuc} ] || [ "${modelnhuc}" = '' ];then
   #"Cannot get server information. Confirm the network."
   if [ $infcheck = 0 ];then
-    echo -e $COLOR$MESSAGE120$MONO
+    echo -e $COLOR$MESSAGE120$MONO    
+    rmdir "${wkdir}"
     exit 0
   fi
   if [ $package_list = TEXT ];then
@@ -1852,11 +1889,13 @@ if [ ! -f ${wkdir}/${modelnhuc} ] || [ "${modelnhuc}" = '' ];then
     echo "PACKAGE:PDRV="$PDRVFILE
     echo "PACKAGE:SCAN="$SCANFILE
     echo "PACKAGE:SKEY="$SKEYFILE
+    rmdir "${wkdir}"
     exit 0
   fi
   if [ $package_list = CSV ];then
     echo "$2"":,"$PKG",${dlresult},${lnk_flag}"\
          ,$LPRFILE,$CUPSFILE,$PDRVFILE,$SCANFILE,$SKEYFILE
+    rmdir "${wkdir}"
     exit 0
   fi
 
@@ -1883,7 +1922,7 @@ if [ ! -f ${wkdir}/${modelnhuc} ] || [ "${modelnhuc}" = '' ];then
   	  >>  brother-drivers/"$0".log
   fi
 
-
+  rmdir "${wkdir}"
   exit 0
 fi
 
@@ -1911,11 +1950,13 @@ if [ $infcheck = 1 ];then
   echo "PACKAGE:PDRV="$PDRVFILE
   echo "PACKAGE:SCAN="$SCANFILE
   echo "PACKAGE:SKEY="$SKEYFILE
+  rmdir "${wkdir}"
   exit 0
 fi
 if [ $infcheck = 2 ];then
   echo "$2"":,"$PKG",${dlresult},${lnk_flag}"\
          ,$LPRFILE,$CUPSFILE,$PDRVFILE,$SCANFILE,$SKEYFILE
+  rmdir "${wkdir}"
   exit 0
 fi
 
@@ -1938,7 +1979,7 @@ if [ "$infcheck" -ge 3 ];then
     wget $WGET_OP '-nc' $URL_PKG/$LPRFILE    -P $dwkdir
   fi
   if [ "$PDRVFILE" != '' ];then
-    rcpdrv="FALSE  "
+    #rcpdrv="FALSE  "
     wget $WGET_OP '-nc' $URL_PKG/$PDRVFILE    -P $dwkdir
   fi
   if [ "$SCANFILE" != '' ];then
@@ -1949,7 +1990,7 @@ if [ "$infcheck" -ge 3 ];then
     rcskey="FALSE  "
     wget $WGET_OP '-nc' $URL_PKG/$SKEYFILE   -P $dwkdir
   fi
-
+ 
   # -------------
   if [ "$CUPSFILE" != '' ];then
     if [ -f $dwkdir/$CUPSFILE ];then
@@ -1963,7 +2004,8 @@ if [ "$infcheck" -ge 3 ];then
   fi
   if [ "$PDRVFILE" != '' ];then
     if [ -f $dwkdir/$PDRVFILE ];then
-      rcpdrv=SUCCESS
+      #rcpdrv=SUCCESS
+	:
     fi
   fi
   if [ "$SCANFILE" != '' ];then
@@ -1998,6 +2040,7 @@ if [ "$infcheck" -ge 3 ];then
   if [ "$infcheck" = 3 ] || [ "$infcheck" = 4 ];then
      rm -fR brother-drivers/$2   2> /dev/null
   fi
+  rmdir "${wkdir}"
   exit 0
 fi
 
@@ -2006,13 +2049,14 @@ if [ "$CUPSFILE" = '' ] && [ "$LPRFILE" = '' ] && [ "$PDRVFILE" = '' ] && [ "$SC
   echo -e $COLOR$MESSAGE130$MONO     #"Install packages does not be found."
   echo -e $COLOR$MESSAGE140$MONO     #" Confirm the model name."
 
-  post_install_sweep
+  post_install_sweep 
 
   if [ "$1" = '' ];then
     echo -e -n $COLOR$MESSAGE240$MONO    #"Hit Return/Enter Key"
     read answer
   fi
   #DBG_MSG  "exit 12"
+  rmdir "${wkdir}"
   exit 0
 fi
 
@@ -2024,8 +2068,9 @@ if [ "$1" = '-f' ] || [ "$1" = '--find' ];then
   echo $SCANFILE
   echo $SKEYFILE
 
-  post_install_sweep
+  post_install_sweep 
   #DBG_MSG  "exit 13"
+  rmdir "${wkdir}"
   exit 0
 fi
 
@@ -2047,7 +2092,7 @@ if [ "$PKG" = deb ];then
   fi
 fi
 
-post_install_sweep
+post_install_sweep 
 
 
 echo -e $COLOR4$MESSAGE150$MONO      #"You are going to install  following packages."
@@ -2079,6 +2124,7 @@ echo -e $MONO
 if [ "$answer" != Y ] && [ "$answer" != y ]; then
     #scanner_install          #    scanner
     #DBG_MSG  "exit 14"
+    rmdir "${wkdir}"
     exit 0
 fi
 
@@ -2095,6 +2141,7 @@ if [ "$LPRFILE" != '' ];then
       scanner_install          #    scanner
       post_proc
       #DBG_MSG  "exit 15"
+      rmdir "${wkdir}"
       exit 0
     fi
 
@@ -2103,6 +2150,7 @@ if [ "$LPRFILE" != '' ];then
       echo -e -n $COLOR$MESSAGE280             #"wget is required."
       echo -e $MONO
       #DBG_MSG  "exit 16"
+      rmdir "${wkdir}"
       exit 0
     fi
     if [ ! -f $LPRFILE ];then
@@ -2110,7 +2158,7 @@ if [ "$LPRFILE" != '' ];then
       echo wget $WGET_OP $CACHEFLG $URL_PKG/$LPRFILE
       wget $WGET_OP $CACHEFLG $URL_PKG/$LPRFILE
     fi
-  fi
+  fi 
 fi
 
 if [ "$CUPSFILE" != '' ];then
@@ -2126,12 +2174,14 @@ if [ "$CUPSFILE" != '' ];then
       scanner_install          #    scanner
       post_proc
       #DBG_MSG  "exit 17"
+      rmdir "${wkdir}"
       exit 0
     fi
     if [ "$(which wget 2> /dev/null)" = '' ];then
       echo -e -n $COLOR$MESSAGE280             #"wget is required."
       echo -e $MONO
       #DBG_MSG  "exit 18"
+      rmdir "${wkdir}"
       exit 0
     fi
 
@@ -2158,12 +2208,14 @@ if [ "$PDRVFILE" != '' ];then
       scanner_install          #    scanner
       post_proc
       #DBG_MSG  "exit 17"
+      rmdir "${wkdir}"
       exit 0
     fi
     if [ "$(which wget 2> /dev/null)" = '' ];then
       echo -e -n $COLOR$MESSAGE280             #"wget is required."
       echo -e $MONO
       #DBG_MSG  "exit 18"
+      rmdir "${wkdir}"
       exit 0
     fi
 
@@ -2189,7 +2241,7 @@ if [ "$arch" != 'i386' ];then
      [ "$REQ32LIB" = 'no' ];then
      require_386lib=no
   fi
-fi
+fi 
 
 if [ "$require_386lib" = yes ];then
   if [ "$(which dpkg 2>/dev/null)" != '' ];then
@@ -2266,10 +2318,10 @@ if ! [ "$(which $LPINFO 2> /dev/null)" ];then
 fi
 
 
-mkmodeldir=0
+#mkmodeldir=0
 if [ ! -d /usr/share/cups/model ];then
   mkdir -p /usr/share/cups/model
-  mkmodeldir=1
+  #mkmodeldir=1
 fi
 
 
@@ -2279,7 +2331,7 @@ if [ "$PREPKGCMDL" != '' ];then
 fi
 if [ "$PREPKGCMDC" != '' ];then
   echo  $PREPKGCMDC
-  $PREPKGCMDC
+  $PREPKGCMDC  
 fi
 if [ "$PREPKGCMDP" != '' ];then
   echo  $PREPKGCMDP
@@ -2322,7 +2374,7 @@ if [ "$PKG" = deb ];then
 
   if [ "$CUPSFILE" != '' ];then
     debfile=$(echo $CUPSFILE | sed s/\.i386.deb/a\.i386.deb/g)
-
+  
     cp $basedir/$CUPSFILE $wkdir/$packdir
     cd $wkdir/$packdir
 
@@ -2348,7 +2400,7 @@ if [ "$PKG" = deb ];then
 
   if [ "$PDRVFILE" != '' ];then
     debfile=$(echo $PDRVFILE | sed s/\.i386.deb/a\.i386.deb/g)
-
+  
     cp $basedir/$PDRVFILE $wkdir/$packdir
     cd $wkdir/$packdir
 
@@ -2396,17 +2448,17 @@ if [ "$DEBUG_NOINSTALL" != 'yes' ];then
 
   if [ "$CUPSFILE" != '' ];then
     echo -n -e $COLOR4
-    echo $PKGCMD  $CUPSFILE
+    echo $PKGCMD  $CUPSFILE 
     echo -n -e $MONO
-    $PKGCMD  $CUPSFILE  |  tee /tmp/brother_linux_brprinter_installer.tmp
+    $PKGCMD  $CUPSFILE  |  tee ${wkdir}/brother_linux_brprinter_installer.tmp
     echo -n -e $MONO
   fi
 
   if [ "$PDRVFILE" != '' ];then
     echo -n -e $COLOR4
-    echo $PKGCMD  $PDRVFILE
+    echo $PKGCMD  $PDRVFILE 
     echo -n -e $MONO
-    $PKGCMD  $PDRVFILE  |  tee /tmp/brother_linux_brprinter_installer.tmp
+    $PKGCMD  $PDRVFILE  |  tee "${wkdir}"/brother_linux_brprinter_installer.tmp
     echo -n -e $MONO
   fi
 else
@@ -2416,11 +2468,11 @@ else
   fi
   sleep 1
   if [ "$CUPSFILE" != '' ];then
-    echo $PKGCMD  $CUPSFILE
+    echo $PKGCMD  $CUPSFILE 
   fi
   sleep 1
   if [ "$PDRVFILE" != '' ];then
-    echo $PKGCMD  $PDRVFILE
+    echo $PKGCMD  $PDRVFILE 
   fi
 
   echo -n -e $MONO
@@ -2433,15 +2485,17 @@ install_done=yes
 #fi
 
 
-if [ -f /tmp/brother_linux_brprinter_installer.tmp ];then
-  csherr=$(cat /tmp/brother_linux_brprinter_installer.tmp | \
-        grep 'ERROR: csh is required')
+if [ -f "${wkdir}"/brother_linux_brprinter_installer.tmp ];then
+  csherr=$(cat ${wkdir}/brother_linux_brprinter_installer.tmp | \
+        grep 'ERROR: csh is required') 
 
+  rm "${wkdir}"/brother_linux_brprinter_installer.tmp
   if [ "$csherr" != "" ];then
     echo -e -n $COLOR
     echo $MESSAGE250
     echo -e $MONO
     #DBG_MSG  "exit 19"
+    rmdir "${wkdir}"
     exit 0
   fi
 fi
@@ -2454,8 +2508,8 @@ if [ "$PRINTERNAME" != UNKNOWN ];then
   if [ "$DEBUG_NOINSTALL" != 'yes' ];then
     while [ ! -f /etc/cups/ppd/"$PRINTERNAME".ppd ] && [ "$retry" -le $TIMEOUT ] ;do
      sleep 1
-     retry=$(($retry+1))
-     echo  -n \#
+     retry=$((retry+1))
+     echo  -n "#" 
     done
     if [ -f /etc/cups/ppd/"$PRINTERNAME".ppd ];then
        RAWINSTALLED=no
@@ -2467,27 +2521,27 @@ else
   retry='0'
   if [ "$DEBUG_NOINSTALL" != 'yes' ];then
     while [ $retry -le $TIMEOUT ] ;do
-      sleep 1
+      sleep 1 
       for ppd in $(ls /etc/cups/ppd/*.ppd)
       do
         modelname=$(echo $ppd | sed s/\.ppd//g | sed s/"\/etc\/cups\/"//g)
-        modelname2=$(echo $modelname | tr -d '-' | tr "[A-Z]" "[a-z]")
-
-        file=$(echo $CUPSFILE | tr -d '-' | tr "[A-Z]" "[a-z]")
+        modelname2=$(echo $modelname | tr -d '-' | tr "[:upper:]" "[:lower:]")
+        
+        file=$(echo $CUPSFILE | tr -d '-' | tr "[:upper:]" "[:lower:]")
         if [ "$(echo $file | grep $modelname2)" != '' ];then
            retry=512
-           PRINTERNAME=$(echo $modelname |  tr "[a-z]" "[A-Z]")
+           PRINTERNAME=$(echo $modelname |  tr "[:lower:]" "[:upper:]")
            RAWINSTALLED=no
            echo PRINTERNAME=$modelname
            break
         fi
-      done
-      retry=$(($retry+1))
-      echo -n \#
+      done 
+      retry=$((retry+1))
+      echo -n "#"
     done
 
     if [ "$PRINTERNAME" = UNKNOWN ];then
-
+      
       PRINTERNAME=$(echo $CUPSFILE         | \
 	sed s/"^br"//g      		   | \
 	sed s/"^cupswrapper"//g		   | \
@@ -2496,7 +2550,7 @@ else
 	sed s/"cups-.*$"//g	           | \
 	sed s/"-.*$"//g			   | \
 	sed s/"_.*$"//g			   | \
-	tr "[a-z]" "[A-Z]")
+	tr "[:lower:]" "[:upper:]")
     fi
 
   else
@@ -2518,7 +2572,7 @@ if [ "$RAWINSTALLED" = 'yes' ];then
 fi
 
 
-echo \#
+echo "#"
 
 #------------
 
@@ -2568,7 +2622,7 @@ if [ "$arch" != "i386" ];then
 
   if [ -d "$LIB32FLT" ]&& [ -d "$LIBFLT" ] ;then
     filter=$(ls $LIBFLT  2> /dev/null  | grep -i $PRINTERNAME | head -n 1 )
-    filter32=$(ls $LIB32FLT  2> /dev/null| grep -i $PRINTERNAME | head -n 1 )
+    #filter32=$(ls $LIB32FLT  2> /dev/null| grep -i $PRINTERNAME | head -n 1 )
     if [ "$filter" != '' ] && [ "$filter64" = '' ];then
       echo cp "$LIBFLT"/$filter   "$LIB32FLT"
       cp "$LIBFLT"/$filter   "$LIB32FLT"
@@ -2592,7 +2646,7 @@ pkgpostfix=''
 
 if [ "$PKG" = deb ];then
  if [ "${LPRPKGNAME}" != '' ];then
-  if [ "$(dpkg -l | grep ${LPRPKGNAME}:i386)" != '' ];then
+  if [ "$(dpkg -l | grep ${LPRPKGNAME}:i386)" != '' ];then 
        pkgpostfix=':i386'
   fi
   files=$(dpkg -L "$LPRPKGNAME""$pkgpostfix" | grep '/usr/lib/')
@@ -2655,14 +2709,14 @@ done
 
 
 if [ "$files" != '' ];then
-  for pathlib in $(ls $(echo "$files"|sed -e s/.so.*$/\*/g))
+  for pathlib in $(ls "$(echo "$files"|sed -e s/.so.*$/\*/g)")
   do
     if [ -d '/usr/lib32' ];then
       #echo pathlib32lib=$(echo $pathlib | sed -e s/"usr\/lib"/"usr\/lib32"/)
       pathlib32lib=$(echo $pathlib | sed -e s/"usr\/lib"/"usr\/lib32"/)
       if [ ! -f "$pathlib32lib" ]; then
         if [ "$pathlib" != '' ] && [ "$pathlib32lib" != '' ];then
-	  echo ln -s $pathlib $pathlib32lib
+	  echo ln -s $pathlib $pathlib32lib  
 	  ln -s $pathlib  $pathlib32lib
 	  echo  "rm  -f $pathlib32lib"                   >> $uninstaller_prn
         fi
@@ -2710,10 +2764,10 @@ fi
 
 
 if [ "$(which semanage 2> /dev/null)" != '' ];then
-
- echo \if [ \"\$RM_SELINUX_RULE\" = \"enable\" ]\;then   >> $uninstaller_prn
- while read rule
- do
+ 
+ echo "if" "[" \"\$RM_SELINUX_RULE\" = \"enable\" ]\;then   >> $uninstaller_prn
+ while read rule 
+ do 
   if [ "$rule" != '' ];then
    sedir=$(echo $rule | \
            sed s/"^.*'\/"/"\/"/g | \
@@ -2772,16 +2826,11 @@ bin_t          '/opt/brother/Printers/(.*/)?cupswrapper(/.*)?'
   echo  "  echo setsebool -P cups_execmem 0"  >> $uninstaller_prn
   echo  "  setsebool -P cups_execmem 0"       >> $uninstaller_prn
 
- echo fi    >> $uninstaller_prn
+ echo "fi"    >> $uninstaller_prn
 
 fi
 
 
-#if [ "$(which setenforce  2> /dev/null)" != '' ];then
-#   echo -e $COLOR$MESSAGE182$MONO          #"SELinux"
-#   echo setenforce 0
-#   setenforce 0
-#fi
 
 
 ## Configure Device URI
@@ -2803,15 +2852,15 @@ if [ "$answer" != n ] && [ "$answer" != N ]; then
   autodurin=""
   for deviceuri in $duri
   do
-    prnn2=$(echo $PRINTERNAME | tr -d '-' | tr "[A-Z]" "[a-z]")
-    duri2=$(echo $deviceuri   | tr -d '-' | tr "[A-Z]" "[a-z]")
+    prnn2=$(echo $PRINTERNAME | tr -d '-' | tr "[:upper:]" "[:lower:]")
+    duri2=$(echo $deviceuri   | tr -d '-' | tr "[:upper:]" "[:lower:]")
     if [ "$(echo $duri2 | grep 'usb://brother' |grep $prnn2 2>/dev/null )" \
                != '' ];then
       autodurin=$i
       autoduris=$deviceuri
       break
     else
-      i=$(($i+1))
+      i=$((i+1))
     fi
   done
 
@@ -2819,14 +2868,14 @@ if [ "$answer" != n ] && [ "$answer" != N ]; then
     i=0
     for deviceuri in $duri
     do
-      prnn2=$(echo $PRINTERNAME | tr -d '-' | tr "[A-Z]" "[a-z]")
-      duri2=$(echo $deviceuri   | tr -d '-' | tr "[A-Z]" "[a-z]")
+      prnn2=$(echo $PRINTERNAME | tr -d '-' | tr "[:upper:]" "[:lower:]")
+      duri2=$(echo $deviceuri   | tr -d '-' | tr "[:upper:]" "[:lower:]")
       if [ "$(echo $duri2  | grep  $prnn2 2>/dev/null)" != '' ];then
         autodurin=$i
         autoduris=$deviceuri
         break
       else
-        i=$(($i+1))
+        i=$((i+1))
       fi
     done
   fi
@@ -2835,29 +2884,29 @@ if [ "$answer" != n ] && [ "$answer" != N ]; then
     i=0
     for deviceuri in $duri
     do
-      prnn2=$(echo $PRINTERNAME | tr -d '-' | tr "[A-Z]" "[a-z]")
-      duri2=$(echo $deviceuri   | tr -d '-' | tr "[A-Z]" "[a-z]")
+      prnn2=$(echo $PRINTERNAME | tr -d '-' | tr "[:upper:]" "[:lower:]")
+      duri2=$(echo $deviceuri   | tr -d '-' | tr "[:upper:]" "[:lower:]")
       if [ "$(echo $duri2  | grep  'usb://brother' 2>/dev/null)" != '' ];then
         autodurin=$i
         autoduris=$deviceuri
       else
-        i=$(($i+1))
+        i=$((i+1))
       fi
     done
   fi
 
   if [ "$autoduris" = '' ];then
     autoduris='usb://dev/usblp0'
-  fi
+  fi 
 
   i=0
   for deviceuri in $duri
   do
     echo $i: $deviceuri
-    i=$(($i+1))
+    i=$((i+1))
   done
   echo -e  $i "(I)": $MESSAGE200   #"Specify IP address."
-  i=$(($i+1))
+  i=$((i+1))
   echo -e  $i "(A)": $MESSAGE201 "("$autoduris")"  #"Auto."
   echo -e $MONO
 
@@ -2874,10 +2923,10 @@ if [ "$answer" != n ] && [ "$answer" != N ]; then
     echo -e -n $COLOR$MESSAGE220          #"  enter IP address ->"
     read ipadrs
     echo -n -e $COLOR4
-    echo $LPADMIN -p $PRINTERNAME -v socket://$ipadrs -E   $PPDOPT
+    echo "$LPADMIN" -p "$PRINTERNAME" -v lpd://"$ipadrs"/BINARY_P1 -E $PPDOPT
     echo -e -n $MONO
-    $LPADMIN -p $PRINTERNAME -v socket://$ipadrs -E    $PPDOPT
-    deviceuri=socket://$ipadrs
+    "$LPADMIN" -p "$PRINTERNAME" -v lpd://"$ipadrs"/BINARY_P1 -E    $PPDOPT
+    deviceuri=lpd://"$ipadrs"/BINARY_P1
   elif [ "$answer" = "$i" ] || \
        [ "$answer" = 'A' ]        || \
        [ "$answer" = 'a' ]        || \
@@ -2905,7 +2954,7 @@ if [ "$answer" != n ] && [ "$answer" != N ]; then
        $LPADMIN -p $PRINTERNAME -v $deviceuri -E    $PPDOPT
        break
      fi
-     i=$(($i+1))
+     i=$((i+1))
    done
   fi
 elif [ "$answer" = "file" ] || [ "$answer" = "File" ]; then
@@ -2937,7 +2986,7 @@ if [ "${modelnhuc}" = 'FAX' ];then
      /etc/init.d/cups restart
   elif [ -f /etc/init.d/cupsys ];then
      /etc/init.d/cupsys restart
-  else
+  else 
      service cups restart
   fi
 
@@ -2946,10 +2995,14 @@ fi
 
 
 
-socketdevice=$(echo "$deviceuri" | grep "socket:")
+ipdevice=$(echo "$deviceuri" | grep -e "socket:"  -e "lpd://")
 
-if [ -n "$socketdevice" ] && [ "$ipadrs" = '' ];then
-    ipadrs=$(echo $socketdevice | sed s/"socket:\/\/"//g  | sed s/":.*$"//g)
+if [ -n "$ipdevice" ] && [ "$ipadrs" = '' ];then
+    ipadrs="$(echo "$ipdevice"          |\
+    	       	   sed s/"^.*:\/\/"//g  |\
+		   sed s/":.*$"//g      |\
+		   sed s/"\/.*$"//g     |\
+		   grep -E "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}")"
 fi
 
 echo -e -n $COLOR$MESSAGE230         #"Test Print \? [y/N]. ->"
@@ -3074,7 +3127,7 @@ if [ "$DUMMYCUPS" = 1 ]   || \
   echo  $rm32filter                                    >>$uninstaller_prn
   echo  $rm64filter                                    >>$uninstaller_prn
 
-fi
+fi 
 
 
 if [ "$SCAN" != '' ];then
@@ -3096,4 +3149,5 @@ if [ "$1" = '' ];then
   read answer
 fi
 #DBG_MSG  "exit 20"
+rmdir "${wkdir}"
 exit 0
