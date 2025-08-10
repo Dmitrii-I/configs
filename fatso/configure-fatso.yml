@@ -368,3 +368,33 @@
       name: glosm==0.6.2
       executable: pip3
       extra_args: --break-system-packages
+
+  - name: Create temp dir for uv tarball
+    tags:
+      - uv
+      - python
+    become: no
+    ansible.builtin.tempfile:
+      state: directory
+      suffix: uv-tarball
+    register: uv_temp_dir
+
+  - name: Download uv
+    tags:
+      - uv
+      - python
+    become: no
+    unarchive:
+      src: https://github.com/astral-sh/uv/releases/download/0.8.8/uv-x86_64-unknown-linux-gnu.tar.gz
+      dest: "{{ uv_temp_dir.path }}"
+      remote_src: yes
+
+  - name: Install uv
+    tags:
+      - uv
+      - python
+    become: no
+    shell: |
+      cd "{{ uv_temp_dir.path }}/uv-x86_64-unknown-linux-gnu/"
+      cp -R . ~/.local/bin
+      rm -rf "{{ uv_temp_dir.path }}"
