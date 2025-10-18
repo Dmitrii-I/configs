@@ -360,6 +360,13 @@
     apt:
       deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2024.04.17_amd64.deb
 
+  - name: Install Obsidian
+    become: yes
+    tags:
+      - obsidian
+    apt:
+      deb: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.9.14/obsidian_1.9.14_amd64.deb
+
   - name: Install glosm
     tags:
       - glosm
