@@ -80,6 +80,9 @@
       - python3.10
       - python3.10-venv
       - python3.10-dev
+      - python3.9
+      - python3.9-venv
+      - python3.9-dev
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
@@ -417,3 +420,40 @@
       cd "{{ uv_temp_dir.path }}/uv-x86_64-unknown-linux-gnu/"
       cp -R . ~/.local/bin
       rm -rf "{{ uv_temp_dir.path }}"
+
+  - name: Download PyCharm
+    tags:
+      - pycharm
+    become: no
+    ansible.builtin.get_url:
+      url: "https://download.jetbrains.com/python/pycharm-2025.2.3.tar.gz"
+      dest: "/tmp/pycharm.tar.gz"
+      checksum: "sha256:58f6165ea8ace65e708c607bec49d20d46b8d5908045ae31703353a184e59a05"
+
+  - name: Create temp dir for PyCharm tarball
+    tags:
+      - pycharm
+    become: no
+    ansible.builtin.tempfile:
+      state: directory
+      suffix: pycharm-tarball
+    register: pycharm_temp_dir
+
+  - name: Unarchive PyCharm
+    tags:
+      - pycharm
+    become: no
+    unarchive:
+      src: "/tmp/pycharm.tar.gz"
+      dest: "{{ pycharm_temp_dir.path }}"
+      remote_src: yes
+
+  - name: Install PyCharm
+    tags:
+      - pycharm
+    become: yes
+    shell: |
+      cd "{{ pycharm_temp_dir.path }}"
+      cp -R . /opt
+      rm -rf "{{ pycharm_temp_dir.path }}"
+
