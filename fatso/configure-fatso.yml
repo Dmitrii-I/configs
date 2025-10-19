@@ -14,6 +14,15 @@
 
   tasks:
 
+  - name: Add deadsnakes repo for older Python versions
+    become: yes
+    tags:
+      - python
+      - apt
+    apt_repository:
+      repo: 'ppa:deadsnakes/ppa'
+      state: present
+
   - name: Add Mullvad key
     become: yes
     tags:
@@ -68,6 +77,9 @@
       - python3-pip
       - python3-gpg  # for dropbox
       - mullvad-vpn
+      - python3.10
+      - python3.10-venv
+      - python3.10-dev
 
   - name: Create ~/.local/bin directory (e.g. Terraform needs it)
     become: no
