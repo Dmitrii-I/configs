@@ -407,7 +407,7 @@
       - python
     become: no
     unarchive:
-      src: https://github.com/astral-sh/uv/releases/download/0.8.8/uv-x86_64-unknown-linux-gnu.tar.gz
+      src: https://github.com/astral-sh/uv/releases/download/0.9.7/uv-x86_64-unknown-linux-gnu.tar.gz
       dest: "{{ uv_temp_dir.path }}"
       remote_src: yes
 
