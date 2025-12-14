@@ -426,9 +426,9 @@
       - pycharm
     become: no
     ansible.builtin.get_url:
-      url: "https://download.jetbrains.com/python/pycharm-2025.2.3.tar.gz"
+      url: "https://download-cdn.jetbrains.com/python/pycharm-2025.3.tar.gz"
       dest: "/tmp/pycharm.tar.gz"
-      checksum: "sha256:58f6165ea8ace65e708c607bec49d20d46b8d5908045ae31703353a184e59a05"
+      checksum: "sha256:a410c9c5834ede16373325ea21b850e309557db5d9dcca3674caf92ea7c5bf05"
 
   - name: Create temp dir for PyCharm tarball
     tags:
